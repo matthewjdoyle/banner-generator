@@ -1,4 +1,4 @@
-import type { AvailableIcon } from '@/stores/data/icons'
+// Types and interfaces
 
 // Core Banner Types
 export interface BannerSize {
@@ -224,72 +224,215 @@ export const FONT_FAMILIES: FontFamily[] = [
     fallback: 'Arial, sans-serif',
   },
 
-  // Decorative & Display
+  // Display & Headers
   {
     name: 'Bebas Neue',
     display: 'Bebas Neue',
-    category: 'decorative',
+    category: 'sans-serif',
     webSafe: false,
-    fallback: 'Arial Black, sans-serif',
+    fallback: 'Arial, sans-serif',
   },
   {
     name: 'Oswald',
     display: 'Oswald',
-    category: 'decorative',
+    category: 'sans-serif',
     webSafe: false,
-    fallback: 'Arial Black, sans-serif',
+    fallback: 'Arial, sans-serif',
   },
   {
     name: 'Anton',
     display: 'Anton',
-    category: 'decorative',
+    category: 'sans-serif',
     webSafe: false,
-    fallback: 'Arial Black, sans-serif',
+    fallback: 'Arial, sans-serif',
   },
   {
     name: 'Righteous',
     display: 'Righteous',
-    category: 'decorative',
+    category: 'sans-serif',
     webSafe: false,
-    fallback: 'Arial Black, sans-serif',
+    fallback: 'Arial, sans-serif',
   },
   {
     name: 'Fredoka One',
     display: 'Fredoka One',
     category: 'decorative',
     webSafe: false,
-    fallback: 'Arial Black, sans-serif',
+    fallback: 'Arial, sans-serif',
   },
   {
     name: 'Comfortaa',
     display: 'Comfortaa',
-    category: 'decorative',
+    category: 'sans-serif',
     webSafe: false,
     fallback: 'Arial, sans-serif',
   },
 
-  // Serif
+  // Classical Gothic Fonts - Tasteful & Elegant
+  {
+    name: 'Cinzel',
+    display: 'Cinzel',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Cinzel Decorative',
+    display: 'Cinzel Decorative',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Cormorant Garamond',
+    display: 'Cormorant Garamond',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Cormorant SC',
+    display: 'Cormorant SC',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Uncial Antiqua',
+    display: 'Uncial Antiqua',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Almendra',
+    display: 'Almendra',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Almendra SC',
+    display: 'Almendra SC',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Caudex',
+    display: 'Caudex',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'UnifrakturMaguntia',
+    display: 'UnifrakturMaguntia',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Metamorphous',
+    display: 'Metamorphous',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Macondo',
+    display: 'Macondo',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+
+  // Dark Gothic Fonts - Edgy but Readable
+  {
+    name: 'Creepster',
+    display: 'Creepster',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Nosifer',
+    display: 'Nosifer',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Butcherman',
+    display: 'Butcherman',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Chonburi',
+    display: 'Chonburi',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Eater',
+    display: 'Eater',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Metal Mania',
+    display: 'Metal Mania',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Lacquer',
+    display: 'Lacquer',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+  {
+    name: 'Pirata One',
+    display: 'Pirata One',
+    category: 'decorative',
+    webSafe: false,
+    fallback: 'serif',
+  },
+
+  // Elegant Serif
   {
     name: 'Playfair Display',
     display: 'Playfair Display',
     category: 'serif',
     webSafe: false,
-    fallback: 'Georgia, serif',
+    fallback: 'serif',
   },
   {
     name: 'Merriweather',
     display: 'Merriweather',
     category: 'serif',
     webSafe: false,
-    fallback: 'Georgia, serif',
+    fallback: 'serif',
   },
-  { name: 'Lora', display: 'Lora', category: 'serif', webSafe: false, fallback: 'Georgia, serif' },
+  {
+    name: 'Lora',
+    display: 'Lora',
+    category: 'serif',
+    webSafe: false,
+    fallback: 'serif',
+  },
   {
     name: 'Source Serif Pro',
     display: 'Source Serif Pro',
     category: 'serif',
     webSafe: false,
-    fallback: 'Georgia, serif',
+    fallback: 'serif',
   },
 
   // Handwritten & Script
@@ -307,7 +450,13 @@ export const FONT_FAMILIES: FontFamily[] = [
     webSafe: false,
     fallback: 'cursive',
   },
-  { name: 'Kalam', display: 'Kalam', category: 'handwritten', webSafe: false, fallback: 'cursive' },
+  {
+    name: 'Kalam',
+    display: 'Kalam',
+    category: 'handwritten',
+    webSafe: false,
+    fallback: 'cursive',
+  },
   {
     name: 'Caveat',
     display: 'Caveat',
@@ -322,63 +471,26 @@ export const FONT_FAMILIES: FontFamily[] = [
     display: 'JetBrains Mono',
     category: 'monospace',
     webSafe: false,
-    fallback: 'Courier New, monospace',
+    fallback: 'monospace',
   },
   {
     name: 'Fira Code',
     display: 'Fira Code',
     category: 'monospace',
     webSafe: false,
-    fallback: 'Courier New, monospace',
+    fallback: 'monospace',
   },
   {
     name: 'Space Mono',
     display: 'Space Mono',
     category: 'monospace',
     webSafe: false,
-    fallback: 'Courier New, monospace',
-  },
-
-  // Web Safe Fallbacks
-  {
-    name: 'Arial',
-    display: 'Arial',
-    category: 'sans-serif',
-    webSafe: true,
-    fallback: 'Arial, sans-serif',
-  },
-  {
-    name: 'Helvetica',
-    display: 'Helvetica',
-    category: 'sans-serif',
-    webSafe: true,
-    fallback: 'Helvetica, Arial, sans-serif',
-  },
-  {
-    name: 'Georgia',
-    display: 'Georgia',
-    category: 'serif',
-    webSafe: true,
-    fallback: 'Georgia, serif',
-  },
-  {
-    name: 'Times New Roman',
-    display: 'Times New Roman',
-    category: 'serif',
-    webSafe: true,
-    fallback: 'Times New Roman, serif',
-  },
-  {
-    name: 'Courier New',
-    display: 'Courier New',
-    category: 'monospace',
-    webSafe: true,
-    fallback: 'Courier New, monospace',
+    fallback: 'monospace',
   },
 ]
 
 export const FONT_CATEGORIES = [
-  { id: 'all', name: 'All Fonts', icon: '🎨' },
+  { id: 'all', name: 'All Fonts', icon: '��' },
   { id: 'sans-serif', name: 'Sans Serif', icon: '🔤' },
   { id: 'serif', name: 'Serif', icon: '📖' },
   { id: 'decorative', name: 'Display', icon: '✨' },
@@ -405,7 +517,11 @@ export function getPopularFonts(): FontFamily[] {
       'Montserrat',
       'Bebas Neue',
       'Playfair Display',
+      'Cinzel',
+      'Cormorant Garamond',
+      'Almendra',
       'Dancing Script',
+      'Creepster',
       'JetBrains Mono',
     ].includes(font.name),
   )
