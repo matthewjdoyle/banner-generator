@@ -112,6 +112,13 @@ onUnmounted(() => {
             class="text-neutral-600 hover:text-neutral-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-neutral-50"
             active-class="text-primary-600 bg-primary-50"
           >
+            Home
+          </RouterLink>
+          <RouterLink
+            to="/generator"
+            class="text-neutral-600 hover:text-neutral-900 font-medium transition-colors px-3 py-2 rounded-lg hover:bg-neutral-50"
+            active-class="text-primary-600 bg-primary-50"
+          >
             Generator
           </RouterLink>
           <RouterLink
@@ -186,6 +193,18 @@ onUnmounted(() => {
           <div class="container mx-auto px-4 py-4 space-y-2">
             <RouterLink
               to="/"
+              @click="closeMobileMenu"
+              class="block text-neutral-600 hover:text-neutral-900 font-medium transition-colors px-4 py-3 rounded-xl hover:bg-neutral-50 border border-transparent hover:border-neutral-200"
+              active-class="text-primary-600 bg-primary-50 border-primary-200"
+              role="menuitem"
+            >
+              <div class="flex items-center space-x-3">
+                <span class="text-lg">🏠</span>
+                <span>Home</span>
+              </div>
+            </RouterLink>
+            <RouterLink
+              to="/generator"
               @click="closeMobileMenu"
               class="block text-neutral-600 hover:text-neutral-900 font-medium transition-colors px-4 py-3 rounded-xl hover:bg-neutral-50 border border-transparent hover:border-neutral-200"
               active-class="text-primary-600 bg-primary-50 border-primary-200"

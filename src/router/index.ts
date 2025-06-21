@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BannerGenerator from '@/views/BannerGenerator.vue'
+import LandingPage from '@/views/LandingPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,19 +7,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: BannerGenerator
+      component: LandingPage,
+    },
+    {
+      path: '/generator',
+      name: 'generator',
+      component: () => import('@/views/BannerGenerator.vue'),
     },
     {
       path: '/gallery',
       name: 'gallery',
-      component: () => import('@/views/Gallery.vue')
+      component: () => import('@/views/Gallery.vue'),
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/views/About.vue')
-    }
-  ]
+      component: () => import('@/views/About.vue'),
+    },
+  ],
 })
 
-export default router 
+export default router

@@ -159,7 +159,7 @@ onUnmounted(() => {
       <!-- Main Content -->
       <main
         id="main-content"
-        :class="['flex-1', route.name === 'home' ? 'pt-16 h-screen' : 'pt-16']"
+        :class="['flex-1', route.name === 'generator' ? 'pt-16 h-screen' : 'pt-16']"
         role="main"
         aria-label="Banner generator application"
       >
@@ -167,7 +167,7 @@ onUnmounted(() => {
       </main>
 
       <!-- Footer - Hidden on banner generator page -->
-      <AppFooter v-if="route.name !== 'home'" />
+      <AppFooter v-if="route.name !== 'generator'" />
 
       <!-- Performance Monitor (Development) -->
       <PerformanceMonitor v-if="isDevelopment" />
