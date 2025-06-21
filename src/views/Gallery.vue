@@ -95,6 +95,10 @@ function getPreviewImage(template: any) {
       </div>
     </div>
 
+    <div class="mt-12">
+      <div class="border-t border-gray-200 my-8"></div>
+    </div>
+
     <!-- Features Section -->
     <div class="mt-12 grid md:grid-cols-3 gap-6">
       <div class="text-center p-4">
