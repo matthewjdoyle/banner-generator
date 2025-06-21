@@ -1854,8 +1854,40 @@ export const useBannerStore = defineStore('banner', () => {
   }
 
   function randomizeBanner() {
-    // Clear existing content
-    clearBanner()
+    // Detect user modifications to preserve them
+    const hasUserText = textElements.value.some(
+      (el) => el.text !== 'Your text here' && el.text.trim() !== '',
+    )
+    const hasMultipleTextElements = textElements.value.length > 1
+    const hasUserImages = images.value.some((img) => {
+      // Check if image is not from our stock image set
+      const stockImageUrls = [
+        'https://images.unsplash.com/photo-1549692520-acc6669e2f0c',
+        'https://images.unsplash.com/photo-1493612276216-ee3925520721',
+        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f',
+        'https://images.unsplash.com/photo-1579546929518-9e396f3cc809',
+        'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0',
+        'https://images.unsplash.com/photo-1551698618-1dfe5d97d256',
+        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
+        'https://images.unsplash.com/photo-1586953208448-b95a79798f07',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
+        'https://images.unsplash.com/photo-1528543606781-2f6e6857f318',
+      ]
+      return !stockImageUrls.some((stockUrl) => img.src.includes(stockUrl.split('?')[0]))
+    })
+
+    console.log('🔍 User Content Detection:', {
+      hasUserText,
+      hasMultipleTextElements,
+      hasUserImages,
+      textCount: textElements.value.length,
+      imageCount: images.value.length,
+      iconCount: icons.value.length,
+    })
+
+    // Store user content to preserve
+    const userTextElements = hasUserText || hasMultipleTextElements ? [...textElements.value] : []
+    const userImages = hasUserImages ? [...images.value] : []
 
     // Generate harmonious color palette for backgrounds
     const colors = generateHarmoniousColors()
@@ -1868,6 +1900,7 @@ export const useBannerStore = defineStore('banner', () => {
       hslColors: colors,
       backgroundColors: hexColors,
       textColors: textColors,
+      preservingUserContent: userTextElements.length > 0 || userImages.length > 0,
       timestamp: Date.now(),
     })
 
@@ -1991,14 +2024,24 @@ export const useBannerStore = defineStore('banner', () => {
     const dominantBgColor = getDominantBackgroundColor(selectedBackground)
     const textColor = getContrastingTextColor(dominantBgColor)
 
-    // 2. Add text with MINIMUM 72px size (large and above only)
+    // Clear only non-user content
+    if (!hasUserText && !hasMultipleTextElements) {
+      textElements.value.length = 0
+    }
+    if (!hasUserImages) {
+      images.value.length = 0
+    }
+    // Always clear icons as they're easy to regenerate
+    icons.value.length = 0
+
+    // 2. Handle text elements
     const bannerWidth = currentSize.value.width
     const bannerHeight = currentSize.value.height
 
     // Calculate scale factor for responsive sizing
     const scaleFactor = Math.min(bannerWidth / 800, bannerHeight / 400)
 
-    // ONLY use font sizes 72px and above (large, xlarge, xxlarge, huge, massive, giant)
+    // ONLY use font sizes 72px and above (large and above only)
     const minFontSizes: Array<TextElement['fontSize']> =
       scaleFactor > 2
         ? ['huge', 'massive', 'giant', 'giant', 'massive', 'huge'] // For very large banners
@@ -2021,83 +2064,186 @@ export const useBannerStore = defineStore('banner', () => {
 
     const fontWeights = ['500', '600', '700', '800'] // medium to extra-bold
 
-    // Position based on template
-    let textX, textY, textAlign: 'left' | 'center' | 'right'
+    if (userTextElements.length > 0) {
+      // Preserve and restyle user text elements
+      console.log('💾 Preserving and restyling user text elements:', userTextElements.length)
 
-    switch (template) {
-      case 'centered':
-        textX = bannerWidth / 2
-        textY = bannerHeight / 2 - 30
-        textAlign = 'center'
-        break
-      case 'corner-focused':
-        textX = 60
-        textY = 60
-        textAlign = 'left'
-        break
-      case 'minimal':
-        textX = bannerWidth * 0.1
-        textY = bannerHeight * 0.3
-        textAlign = 'left'
-        break
-      case 'dynamic':
-        textX = bannerWidth * 0.2
-        textY = bannerHeight * 0.4 + (Math.random() - 0.5) * 100
-        textAlign = Math.random() > 0.5 ? 'left' : 'center'
-        break
-      default: // balanced
-        textX = bannerWidth * 0.15
-        textY = bannerHeight * 0.35
-        textAlign = 'left'
+      userTextElements.forEach((userText, index) => {
+        // Higher chance for gradient text (70% chance)
+        const useGradientText = Math.random() > 0.3
+        const fontSize = minFontSizes[Math.floor(Math.random() * minFontSizes.length)]
+
+        // Select text colors that contrast with background
+        const primaryTextColor = textColors[Math.floor(Math.random() * textColors.length)]
+        const secondaryTextColor = textColors[Math.floor(Math.random() * textColors.length)]
+
+        // Ensure gradient colors are different from each other
+        const gradientColor1 = primaryTextColor
+        let gradientColor2 = secondaryTextColor
+        if (areColorsSimilar(gradientColor1, gradientColor2, 30)) {
+          gradientColor2 =
+            textColors.find((color) => !areColorsSimilar(color, gradientColor1, 30)) || textColor
+        }
+
+        // Position based on template and element index
+        let textX, textY, textAlign: 'left' | 'center' | 'right'
+
+        switch (template) {
+          case 'centered':
+            textX = bannerWidth / 2
+            textY = bannerHeight / 2 - 30 + index * 80
+            textAlign = 'center'
+            break
+          case 'corner-focused':
+            textX = 60
+            textY = 60 + index * 80
+            textAlign = 'left'
+            break
+          case 'minimal':
+            textX = bannerWidth * 0.1
+            textY = bannerHeight * 0.3 + index * 80
+            textAlign = 'left'
+            break
+          case 'dynamic':
+            textX = bannerWidth * 0.2 + index * 50
+            textY = bannerHeight * 0.4 + (Math.random() - 0.5) * 100 + index * 60
+            textAlign = Math.random() > 0.5 ? 'left' : 'center'
+            break
+          default: // balanced
+            textX = bannerWidth * 0.15
+            textY = bannerHeight * 0.35 + index * 70
+            textAlign = 'left'
+        }
+
+        // Update the existing text element with new styling but preserve the text content
+        updateTextElement(userText.id, {
+          x: Math.max(40, Math.min(textX, bannerWidth - 300)),
+          y: Math.max(40, Math.min(textY, bannerHeight - 80)),
+          fontSize,
+          color: useGradientText ? gradientColor1 : primaryTextColor,
+          colorType: useGradientText ? 'gradient' : 'solid',
+          gradientColors: useGradientText ? [gradientColor1, gradientColor2] : undefined,
+          gradientDirection: Math.random() * 360,
+          fontFamily: selectedFontFamily,
+          fontWeight: fontWeights[Math.floor(Math.random() * fontWeights.length)],
+          textAlign,
+          letterSpacing: Math.random() > 0.7 ? Math.random() * 2 : 0,
+          lineHeight: 1.1 + Math.random() * 0.3,
+          rotation: template === 'dynamic' && Math.random() > 0.8 ? (Math.random() - 0.5) * 15 : 0,
+          opacity: 0.95 + Math.random() * 0.05,
+          shadow: {
+            enabled: selectedBackground.type === 'image' || Math.random() > 0.6,
+            color:
+              primaryTextColor === '#FFFFFF' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.4)',
+            blur: 3 + Math.random() * 4,
+            offsetX: Math.random() * 3 - 1.5,
+            offsetY: Math.random() * 3 - 1.5,
+          },
+          stroke: {
+            enabled: Math.random() > 0.85,
+            color: primaryTextColor === '#FFFFFF' ? '#000000' : '#FFFFFF',
+            width: 1 + Math.random() * 1.5,
+          },
+        })
+      })
+    } else {
+      // Add new default text element if no user text exists
+      console.log('➕ Adding new default text element')
+
+      // Position based on template
+      let textX, textY, textAlign: 'left' | 'center' | 'right'
+
+      switch (template) {
+        case 'centered':
+          textX = bannerWidth / 2
+          textY = bannerHeight / 2 - 30
+          textAlign = 'center'
+          break
+        case 'corner-focused':
+          textX = 60
+          textY = 60
+          textAlign = 'left'
+          break
+        case 'minimal':
+          textX = bannerWidth * 0.1
+          textY = bannerHeight * 0.3
+          textAlign = 'left'
+          break
+        case 'dynamic':
+          textX = bannerWidth * 0.2
+          textY = bannerHeight * 0.4 + (Math.random() - 0.5) * 100
+          textAlign = Math.random() > 0.5 ? 'left' : 'center'
+          break
+        default: // balanced
+          textX = bannerWidth * 0.15
+          textY = bannerHeight * 0.35
+          textAlign = 'left'
+      }
+
+      // Higher chance for gradient text (70% chance)
+      const useGradientText = Math.random() > 0.3
+      const fontSize = minFontSizes[Math.floor(Math.random() * minFontSizes.length)]
+
+      // Select text colors that contrast with background
+      const primaryTextColor = textColors[Math.floor(Math.random() * textColors.length)]
+      const secondaryTextColor = textColors[Math.floor(Math.random() * textColors.length)]
+
+      // Ensure gradient colors are different from each other
+      const gradientColor1 = primaryTextColor
+      let gradientColor2 = secondaryTextColor
+      if (areColorsSimilar(gradientColor1, gradientColor2, 30)) {
+        gradientColor2 =
+          textColors.find((color) => !areColorsSimilar(color, gradientColor1, 30)) || textColor
+      }
+
+      addTextElement({
+        text: 'Your text here',
+        x: Math.max(40, Math.min(textX, bannerWidth - 300)),
+        y: Math.max(40, Math.min(textY, bannerHeight - 80)),
+        fontSize,
+        color: useGradientText ? gradientColor1 : primaryTextColor,
+        colorType: useGradientText ? 'gradient' : 'solid',
+        gradientColors: useGradientText ? [gradientColor1, gradientColor2] : undefined,
+        gradientDirection: Math.random() * 360,
+        fontFamily: selectedFontFamily,
+        fontWeight: fontWeights[Math.floor(Math.random() * fontWeights.length)],
+        textAlign,
+        letterSpacing: Math.random() > 0.7 ? Math.random() * 2 : 0,
+        lineHeight: 1.1 + Math.random() * 0.3,
+        rotation: template === 'dynamic' && Math.random() > 0.8 ? (Math.random() - 0.5) * 15 : 0,
+        opacity: 0.95 + Math.random() * 0.05,
+        shadow: {
+          enabled: selectedBackground.type === 'image' || Math.random() > 0.6,
+          color: primaryTextColor === '#FFFFFF' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.4)',
+          blur: 3 + Math.random() * 4,
+          offsetX: Math.random() * 3 - 1.5,
+          offsetY: Math.random() * 3 - 1.5,
+        },
+        stroke: {
+          enabled: Math.random() > 0.85,
+          color: primaryTextColor === '#FFFFFF' ? '#000000' : '#FFFFFF',
+          width: 1 + Math.random() * 1.5,
+        },
+      })
     }
 
-    // Higher chance for gradient text (70% chance)
-    const useGradientText = Math.random() > 0.3
-    const fontSize = minFontSizes[Math.floor(Math.random() * minFontSizes.length)]
+    // 3. Handle user images - preserve and potentially adjust positioning
+    if (userImages.length > 0) {
+      console.log('💾 Preserving user images:', userImages.length)
+      userImages.forEach((userImage) => {
+        // Keep user images but potentially adjust their positioning slightly for better layout
+        const adjustmentX = (Math.random() - 0.5) * 40 // Small position adjustment
+        const adjustmentY = (Math.random() - 0.5) * 40
 
-    // Select text colors that contrast with background
-    const primaryTextColor = textColors[Math.floor(Math.random() * textColors.length)]
-    const secondaryTextColor = textColors[Math.floor(Math.random() * textColors.length)]
-
-    // Ensure gradient colors are different from each other
-    const gradientColor1 = primaryTextColor
-    let gradientColor2 = secondaryTextColor
-    if (areColorsSimilar(gradientColor1, gradientColor2, 30)) {
-      gradientColor2 =
-        textColors.find((color) => !areColorsSimilar(color, gradientColor1, 30)) || textColor
+        updateImage(userImage.id, {
+          x: Math.max(0, Math.min(userImage.x + adjustmentX, bannerWidth - userImage.width)),
+          y: Math.max(0, Math.min(userImage.y + adjustmentY, bannerHeight - userImage.height)),
+          // Preserve other properties like size and border radius
+        })
+      })
     }
 
-    addTextElement({
-      text: 'Your text here',
-      x: Math.max(40, Math.min(textX, bannerWidth - 300)),
-      y: Math.max(40, Math.min(textY, bannerHeight - 80)),
-      fontSize,
-      color: useGradientText ? gradientColor1 : primaryTextColor,
-      colorType: useGradientText ? 'gradient' : 'solid',
-      gradientColors: useGradientText ? [gradientColor1, gradientColor2] : undefined,
-      gradientDirection: Math.random() * 360,
-      fontFamily: selectedFontFamily,
-      fontWeight: fontWeights[Math.floor(Math.random() * fontWeights.length)],
-      textAlign,
-      letterSpacing: Math.random() > 0.7 ? Math.random() * 2 : 0,
-      lineHeight: 1.1 + Math.random() * 0.3,
-      rotation: template === 'dynamic' && Math.random() > 0.8 ? (Math.random() - 0.5) * 15 : 0,
-      opacity: 0.95 + Math.random() * 0.05,
-      shadow: {
-        enabled: selectedBackground.type === 'image' || Math.random() > 0.6,
-        color: primaryTextColor === '#FFFFFF' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.4)',
-        blur: 3 + Math.random() * 4,
-        offsetX: Math.random() * 3 - 1.5,
-        offsetY: Math.random() * 3 - 1.5,
-      },
-      stroke: {
-        enabled: Math.random() > 0.85,
-        color: primaryTextColor === '#FFFFFF' ? '#000000' : '#FFFFFF',
-        width: 1 + Math.random() * 1.5,
-      },
-    })
-
-    // 3. Smart icon placement based on template (40-80% chance)
+    // 4. Smart icon placement based on template (40-80% chance)
     if (Math.random() > 0.2) {
       const iconCount =
         template === 'minimal'
@@ -2189,8 +2335,9 @@ export const useBannerStore = defineStore('banner', () => {
       }
     }
 
-    // 4. Decorative elements based on template (reduced probability for cleaner look)
-    if (template === 'dynamic' && Math.random() > 0.7) {
+    // 5. Decorative elements based on template (reduced probability for cleaner look)
+    // Only add decorative images if user hasn't uploaded their own
+    if (template === 'dynamic' && Math.random() > 0.7 && !hasUserImages) {
       const decorativeImages = [
         'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=150&h=150&fit=crop',
         'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=150&h=150&fit=crop',
@@ -2209,6 +2356,14 @@ export const useBannerStore = defineStore('banner', () => {
         borderRadius: Math.random() > 0.4 ? Math.random() * 50 : 0,
       })
     }
+
+    console.log('✅ Smart Randomizer Complete:', {
+      preservedUserText: userTextElements.length,
+      preservedUserImages: userImages.length,
+      finalTextCount: textElements.value.length,
+      finalImageCount: images.value.length,
+      finalIconCount: icons.value.length,
+    })
   }
 
   // Initialize default content when store is created
