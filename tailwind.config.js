@@ -1,14 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'display': ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Primary: Electric Purple (from logo - #9B5DE5)
@@ -23,7 +20,7 @@ export default {
           700: '#7b31c7',
           800: '#6527a4',
           900: '#532184',
-          950: '#351357'
+          950: '#351357',
         },
         // Secondary: Viridis Green (from logo - #05e68c)
         secondary: {
@@ -37,7 +34,7 @@ export default {
           700: '#059b56',
           800: '#087a47',
           900: '#0a653c',
-          950: '#023a20'
+          950: '#023a20',
         },
         // Accent: Viridis Yellow (from logo - #fde725)
         accent: {
@@ -51,7 +48,7 @@ export default {
           700: '#a47006',
           800: '#87580d',
           900: '#734711',
-          950: '#432505'
+          950: '#432505',
         },
         // Neutral: Warm Grays (Modern & Clean)
         neutral: {
@@ -65,7 +62,7 @@ export default {
           700: '#44403c',
           800: '#292524',
           900: '#1c1917',
-          950: '#0c0a09'
+          950: '#0c0a09',
         },
         // Success: Fresh Green
         success: {
@@ -79,7 +76,7 @@ export default {
           700: '#15803d',
           800: '#166534',
           900: '#14532d',
-          950: '#052e16'
+          950: '#052e16',
         },
         // Warning: Vibrant Yellow
         warning: {
@@ -93,7 +90,7 @@ export default {
           700: '#a16207',
           800: '#854d0e',
           900: '#713f12',
-          950: '#422006'
+          950: '#422006',
         },
         // Error: Modern Red
         error: {
@@ -107,8 +104,8 @@ export default {
           700: '#b91c1c',
           800: '#991b1b',
           900: '#7f1d1d',
-          950: '#450a0a'
-        }
+          950: '#450a0a',
+        },
       },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(135deg, #9b5de5 0%, #7b31c7 100%)',
@@ -117,11 +114,11 @@ export default {
         'gradient-hero': 'linear-gradient(135deg, #9b5de5 0%, #05e68c 50%, #fde725 100%)',
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        'strong': '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-      }
+        soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        medium: '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        strong: '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+      },
     },
   },
   plugins: [],
-} 
+}
