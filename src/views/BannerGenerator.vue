@@ -203,12 +203,7 @@ const tabs = [
 
             <!-- Tab Content -->
             <div
-              class="overflow-y-auto bg-white max-h-[50vh] lg:max-h-none"
-              :style="{
-                height: 'auto',
-                'lg:height': 'calc(100vh - 280px)',
-                'lg:min-height': '400px',
-              }"
+              class="overflow-y-auto bg-white max-h-[50vh] lg:max-h-none lg:h-[calc(100vh-280px)] lg:min-h-[400px]"
             >
               <div class="p-4 sm:p-6">
                 <SizeSelector v-if="activeTab === 'size'" />
