@@ -350,5 +350,184 @@ const sampleImages = [
       <p class="font-medium">No images added yet</p>
       <p class="text-sm">Upload or select images above to get started!</p>
     </div>
+
+    <!-- AI Image Generation Tools -->
+    <div
+      class="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-2xl p-6 border border-purple-200 shadow-soft"
+    >
+      <div
+        class="bg-gradient-to-r from-purple-100 to-indigo-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-purple-300/50"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-medium"
+          >
+            <span class="text-white text-lg">🤖</span>
+          </div>
+          <div>
+            <h4 class="font-bold text-purple-900">AI Image Generation</h4>
+            <p class="text-sm text-purple-700">Create custom images with AI - completely free!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Leonardo AI -->
+        <a
+          href="https://leonardo.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center justify-between p-4 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50"
+        >
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-soft"
+            >
+              <span class="text-white text-xl font-bold">L</span>
+            </div>
+            <div>
+              <h5 class="font-bold text-purple-900 group-hover:text-purple-700">Leonardo AI</h5>
+              <p class="text-sm text-purple-600">150 free credits daily • High-quality AI art</p>
+              <div class="flex items-center space-x-2 mt-1">
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full"
+                  >Free Daily</span
+                >
+                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full"
+                  >Best Quality</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2 text-purple-500 group-hover:text-purple-700">
+            <span class="text-sm font-medium">Generate</span>
+            <svg
+              class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <!-- Playground AI -->
+        <a
+          href="https://playgroundai.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center justify-between p-4 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50"
+        >
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-soft"
+            >
+              <span class="text-white text-xl">🎨</span>
+            </div>
+            <div>
+              <h5 class="font-bold text-purple-900 group-hover:text-purple-700">Playground AI</h5>
+              <p class="text-sm text-purple-600">1000 free images/day • Multiple AI models</p>
+              <div class="flex items-center space-x-2 mt-1">
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full"
+                  >1000/Day</span
+                >
+                <span
+                  class="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full"
+                  >Easy to Use</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2 text-purple-500 group-hover:text-purple-700">
+            <span class="text-sm font-medium">Create</span>
+            <svg
+              class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <!-- Bing Image Creator -->
+        <a
+          href="https://www.bing.com/images/create"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center justify-between p-4 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50"
+        >
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-soft"
+            >
+              <span class="text-white text-xl font-bold">B</span>
+            </div>
+            <div>
+              <h5 class="font-bold text-purple-900 group-hover:text-purple-700">
+                Bing Image Creator
+              </h5>
+              <p class="text-sm text-purple-600">Powered by DALL-E • Microsoft's free AI tool</p>
+              <div class="flex items-center space-x-2 mt-1">
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full"
+                  >Completely Free</span
+                >
+                <span
+                  class="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full"
+                  >DALL-E 3</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2 text-purple-500 group-hover:text-purple-700">
+            <span class="text-sm font-medium">Generate</span>
+            <svg
+              class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      <!-- Pro Tips -->
+      <div class="mt-6 p-4 bg-purple-50 rounded-xl border border-purple-200">
+        <h6 class="font-semibold text-purple-900 mb-2 flex items-center">
+          <span class="text-purple-500 mr-2">💡</span>
+          Pro Tips for AI Image Generation
+        </h6>
+        <ul class="text-sm text-purple-700 space-y-1">
+          <li>
+            • Be specific in your prompts (e.g., "modern minimalist office space, bright lighting,
+            clean desk")
+          </li>
+          <li>
+            • Include style keywords like "professional", "artistic", "photorealistic", or
+            "illustration"
+          </li>
+          <li>• Mention aspect ratios that match your banner size for best results</li>
+          <li>• Try different variations of your prompt to get the perfect image</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
