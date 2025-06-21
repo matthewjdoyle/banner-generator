@@ -8,41 +8,6 @@
       <div class="max-w-4xl mx-auto">
         <!-- Hero Section -->
         <div class="text-center mb-16">
-          <div class="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-strong">
-            <svg class="w-12 h-12" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <path id="ellipsePath" d="M10,50 A40,25 0 1,1 90,50 A40,25 0 1,1 10,50 Z" />
-              </defs>
-              <g transform="rotate(45 50 50)">
-                <ellipse cx="50" cy="50" rx="40" ry="25" stroke="white" stroke-width="6"/>
-                <circle cx="43" cy="50" r="7" fill="white"/> 
-                <circle cx="50" cy="43" r="7" fill="#05e68c"/>
-                <circle cx="57" cy="50" r="7" fill="white"/>
-                <circle cx="50" cy="57" r="7" fill="#05e68c"/>
-                
-                <circle r="5" fill="#fde725">
-                  <animateMotion 
-                    dur="20.4s" 
-                    repeatCount="indefinite" 
-                    keyPoints="0;0;0.5;0.5;0;0" 
-                    keyTimes="0;0.14706;0.15686;0.64706;0.65686;1"
-                  >
-                    <mpath href="#ellipsePath"/>
-                  </animateMotion>
-                </circle>
-                <circle r="5" fill="#fde725">
-                  <animateMotion 
-                    dur="20.4s" 
-                    repeatCount="indefinite" 
-                    keyPoints="0.5;0.5;1;1;0.5;0.5" 
-                    keyTimes="0;0.14706;0.15686;0.64706;0.65686;1"
-                  >
-                    <mpath href="#ellipsePath"/>
-                  </animateMotion>
-                </circle>
-              </g>
-            </svg>
-          </div>
           <h1 class="text-4xl lg:text-5xl font-bold text-gradient mb-6 font-display">
             About Banner Generator
           </h1>
@@ -53,8 +18,12 @@
 
         <!-- Features Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100">
-            <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100"
+          >
+            <div
+              class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4"
+            >
               <span class="text-white text-xl">🎨</span>
             </div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">Make it!</h3>
@@ -63,8 +32,12 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100">
-            <div class="w-12 h-12 bg-gradient-secondary rounded-xl flex items-center justify-center mb-4">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100"
+          >
+            <div
+              class="w-12 h-12 bg-gradient-secondary rounded-xl flex items-center justify-center mb-4"
+            >
               <span class="text-white text-xl">⚡</span>
             </div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">Quick & Easy</h3>
@@ -73,18 +46,24 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100">
-            <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mb-4">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100"
+          >
+            <div
+              class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mb-4"
+            >
               <span class="text-white text-xl">💎</span>
             </div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">FREE</h3>
-            <p class="text-neutral-600">
-              Everything is free to use. No costs or limits.
-            </p>
+            <p class="text-neutral-600">Everything is free to use. No costs or limits.</p>
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100">
-            <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100"
+          >
+            <div
+              class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mb-4"
+            >
               <span class="text-white text-xl">📐</span>
             </div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">Sizes for ALL Platforms</h3>
@@ -93,8 +72,12 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100">
-            <div class="w-12 h-12 bg-gradient-secondary rounded-xl flex items-center justify-center mb-4">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100"
+          >
+            <div
+              class="w-12 h-12 bg-gradient-secondary rounded-xl flex items-center justify-center mb-4"
+            >
               <span class="text-white text-xl">🖼️</span>
             </div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">Customise!</h3>
@@ -103,8 +86,12 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100">
-            <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mb-4">
+          <div
+            class="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-neutral-100"
+          >
+            <div
+              class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mb-4"
+            >
               <span class="text-white text-xl">🎯</span>
             </div>
             <h3 class="text-xl font-bold text-neutral-900 mb-3">Helpful Features</h3>
@@ -115,70 +102,84 @@
         </div>
 
         <!-- Developer Section -->
-        <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-soft border border-neutral-100 text-center">
-          <h2 class="text-3xl font-bold text-neutral-900 mb-4 font-display">Built by Dr. M. Doyle</h2>
+        <div
+          class="bg-white rounded-2xl p-8 lg:p-12 shadow-soft border border-neutral-100 text-center"
+        >
+          <h2 class="text-3xl font-bold text-neutral-900 mb-4 font-display">
+            Built by Dr. M. Doyle
+          </h2>
           <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
-            I made this banner generator to help people create and customize great-looking banners without the hassle. 
-            Hope you find it useful!
+            I made this banner generator to help people create and customize great-looking banners
+            without the hassle. Hope you find it useful!
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a 
-              href="https://www.matthewd0yle.com" 
-              target="_blank" 
+            <a
+              href="https://www.matthewd0yle.com"
+              target="_blank"
               rel="noopener noreferrer"
               class="text-white px-8 py-4 rounded-xl font-semibold hover:shadow-strong transition-all duration-300 transform hover:scale-105 flex items-center space-x-3"
-              style="background-color: #000F0D;"
+              style="background-color: #000f0d"
             >
-              <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                class="w-6 h-6"
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <defs>
                   <path id="ellipsePath" d="M10,50 A40,25 0 1,1 90,50 A40,25 0 1,1 10,50 Z" />
                 </defs>
                 <!-- Background circle matching button color -->
-                <circle cx="50" cy="50" r="50" fill="#000F0D"/>
+                <circle cx="50" cy="50" r="50" fill="#000F0D" />
                 <g transform="rotate(45 50 50)">
-                  <ellipse cx="50" cy="50" rx="40" ry="25" stroke="#9B5DE5" stroke-width="6"/>
+                  <ellipse cx="50" cy="50" rx="40" ry="25" stroke="#9B5DE5" stroke-width="6" />
                   <!-- Central Diamond Dots -->
-                  <circle cx="43" cy="50" r="7" fill="#9B5DE5"/> 
-                  <circle cx="50" cy="43" r="7" fill="#05e68c"/>
-                  <circle cx="57" cy="50" r="7" fill="#9B5DE5"/>
-                  <circle cx="50" cy="57" r="7" fill="#05e68c"/>
-                  
+                  <circle cx="43" cy="50" r="7" fill="#9B5DE5" />
+                  <circle cx="50" cy="43" r="7" fill="#05e68c" />
+                  <circle cx="57" cy="50" r="7" fill="#9B5DE5" />
+                  <circle cx="50" cy="57" r="7" fill="#05e68c" />
+
                   <!-- Outer Extrema Dots with Animation along path -->
                   <circle r="5" fill="#fde725">
-                    <animateMotion 
-                      dur="20.4s" 
-                      repeatCount="indefinite" 
-                      keyPoints="0;0;0.5;0.5;0;0" 
+                    <animateMotion
+                      dur="20.4s"
+                      repeatCount="indefinite"
+                      keyPoints="0;0;0.5;0.5;0;0"
                       keyTimes="0;0.14706;0.15686;0.64706;0.65686;1"
                     >
-                      <mpath href="#ellipsePath"/>
+                      <mpath href="#ellipsePath" />
                     </animateMotion>
                   </circle>
                   <circle r="5" fill="#fde725">
-                    <animateMotion 
-                      dur="20.4s" 
-                      repeatCount="indefinite" 
-                      keyPoints="0.5;0.5;1;1;0.5;0.5" 
+                    <animateMotion
+                      dur="20.4s"
+                      repeatCount="indefinite"
+                      keyPoints="0.5;0.5;1;1;0.5;0.5"
                       keyTimes="0;0.14706;0.15686;0.64706;0.65686;1"
                     >
-                      <mpath href="#ellipsePath"/>
+                      <mpath href="#ellipsePath" />
                     </animateMotion>
                   </circle>
                 </g>
               </svg>
               <span>Visit My Website</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
               </svg>
             </a>
-            <a 
-              href="https://ko-fi.com/matthewjdoyle" 
-              target="_blank" 
+            <a
+              href="https://ko-fi.com/matthewjdoyle"
+              target="_blank"
               rel="noopener noreferrer"
               class="hover:shadow-strong transition-all duration-300 transform hover:scale-105"
             >
-              <img 
-                src="/support-me-on-ko-fi.png" 
+              <img
+                src="/support-me-on-ko-fi.png"
                 alt="Support me on Ko-fi"
                 class="h-12 rounded-xl shadow-soft hover:shadow-medium transition-shadow duration-200"
               />
@@ -187,8 +188,12 @@
         </div>
 
         <!-- Technical Details -->
-        <div class="mt-16 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl p-8 border border-neutral-200">
-          <h3 class="text-2xl font-bold text-neutral-900 mb-6 text-center font-display">Technical Details</h3>
+        <div
+          class="mt-16 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl p-8 border border-neutral-200"
+        >
+          <h3 class="text-2xl font-bold text-neutral-900 mb-6 text-center font-display">
+            Technical Details
+          </h3>
           <div class="grid md:grid-cols-2 gap-8">
             <div>
               <h4 class="text-lg font-semibold text-neutral-800 mb-3">Built With</h4>
@@ -245,4 +250,4 @@
       </div>
     </div>
   </div>
-</template> 
+</template>
