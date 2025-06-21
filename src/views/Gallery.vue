@@ -23,18 +23,19 @@ function useTemplate(template: any) {
 // Get preview image URL for template
 function getPreviewImage(template: any) {
   const imageMap: { [key: string]: string } = {
-    'tech-startup': '/banner-tech-startup.png',
-    'creative-agency': '/banner-creative.png',
-    'personal-brand': '/banner-personal-brand.png',
-    'ecommerce-store': '/banner-sale.png',
-    'fitness-coach': '/banner-nutrition.png',
-    'food-blog': '/banner-food.png',
-    'quantum-physics': '/banner-quantum.png',
-    'abstract-art': '/banner-art.png',
-    'music-producer': '/banner-producer.png'
+    'tech-startup': 'banner-tech-startup.png',
+    'creative-agency': 'banner-creative.png',
+    'personal-brand': 'banner-personal-brand.png',
+    'ecommerce-store': 'banner-sale.png',
+    'fitness-coach': 'banner-nutrition.png',
+    'food-blog': 'banner-food.png',
+    'quantum-physics': 'banner-quantum.png',
+    'abstract-art': 'banner-art.png',
+    'music-producer': 'banner-producer.png'
   }
   
-  return imageMap[template.id] || '/banner-tech-startup.png'
+  const imageName = imageMap[template.id] || 'banner-tech-startup.png'
+  return import.meta.env.BASE_URL + imageName
 }
 
 
