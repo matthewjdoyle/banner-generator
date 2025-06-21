@@ -14,6 +14,7 @@ const isDevelopment = ref(import.meta.env.DEV)
 const showKofiPopup = ref(false)
 const kofiTimer = ref<number | null>(null)
 
+
 // Sharing popup state
 const showSharingPopup = ref(false)
 const sharingTimer = ref<number | null>(null)
