@@ -216,7 +216,7 @@
                 </li>
                 <li class="flex items-center space-x-2">
                   <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                  <span></span>
+                  <span><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="underline hover:text-neutral-800">Unsplash</a> for preset images</span>
                 </li>
               </ul>
             </div>
