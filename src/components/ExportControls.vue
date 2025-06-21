@@ -124,10 +124,10 @@ const socialPlatforms = [
             <label class="block text-sm font-semibold text-secondary-800 mb-2">File Format</label>
             <select
               v-model="exportFormat"
-              class="w-full px-4 py-3 border-2 border-secondary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent bg-white font-medium"
+              class="w-full px-2 py-2 border-2 border-secondary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent bg-white font-small"
             >
-              <option value="png">PNG (Best Quality)</option>
-              <option value="jpg">JPEG (Smaller Size)</option>
+              <option value="png">PNG</option>
+              <option value="jpg">JPEG</option>
             </select>
           </div>
 
@@ -243,8 +243,7 @@ const socialPlatforms = [
             <span class="text-white text-lg">📱</span>
           </div>
           <div>
-            <h4 class="font-bold text-accent-900">Quick Resize</h4>
-            <p class="text-sm text-accent-700">Switch to popular social media sizes</p>
+            <h4 class="font-bold text-accent-900">Last minute size change?</h4>
           </div>
         </div>
       </div>
@@ -262,7 +261,7 @@ const socialPlatforms = [
               category: 'Social Media',
             })
           "
-          class="group text-left p-4 bg-white border-2 border-accent-200 rounded-xl hover:border-accent-400 hover:bg-accent-50 transition-all duration-300 hover:shadow-medium"
+          class="group text-left text-sm p-4 bg-white border-2 border-accent-200 rounded-xl hover:border-accent-400 hover:bg-accent-50 transition-all duration-300 hover:shadow-medium"
         >
           <div class="flex items-center justify-between">
             <div>
@@ -296,7 +295,6 @@ const socialPlatforms = [
           </div>
           <div>
             <h4 class="font-bold text-neutral-900">Advanced Tools</h4>
-            <p class="text-sm text-neutral-600">Additional options and utilities</p>
           </div>
         </div>
       </div>
@@ -304,7 +302,7 @@ const socialPlatforms = [
       <div class="space-y-3">
         <button
           @click="copyBannerData"
-          class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-white border-2 border-neutral-200 rounded-xl hover:border-neutral-300 hover:bg-neutral-50 transition-all duration-200 font-medium text-neutral-700"
+          class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-white border-2 border-neutral-200 rounded-xl hover:border-neutral-300 hover:bg-neutral-50 transition-all duration-200 font-medium text-neutral-700 text-sm"
         >
           <span class="text-lg">📋</span>
           <span>Copy Banner Data</span>
@@ -312,7 +310,7 @@ const socialPlatforms = [
 
         <button
           @click="clearBanner"
-          class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-error-50 border-2 border-error-200 rounded-xl hover:border-error-300 hover:bg-error-100 transition-all duration-200 font-medium text-error-700"
+          class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-error-50 border-2 border-error-200 rounded-xl hover:border-error-300 hover:bg-error-100 transition-all duration-200 font-medium text-error-700 text-sm"
         >
           <span class="text-lg">🗑️</span>
           <span>Clear All Elements</span>

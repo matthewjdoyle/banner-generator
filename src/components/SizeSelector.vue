@@ -194,19 +194,19 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
       <div class="grid grid-cols-2 gap-4">
         <div class="bg-white/70 rounded-xl p-3 border border-primary-200">
           <p class="text-xs font-semibold text-primary-700 uppercase tracking-wide mb-1">Name</p>
-          <p class="font-bold text-primary-900">{{ bannerStore.currentSize.name }}</p>
+          <p class="text-sm font-bold text-primary-900">{{ bannerStore.currentSize.name }}</p>
         </div>
         <div class="bg-white/70 rounded-xl p-3 border border-primary-200">
           <p class="text-xs font-semibold text-primary-700 uppercase tracking-wide mb-1">Dimensions</p>
-          <p class="font-bold text-primary-900 font-mono">{{ bannerStore.currentSize.width }} × {{ bannerStore.currentSize.height }}px</p>
+          <p class="text-sm font-bold text-primary-900 font-mono">{{ bannerStore.currentSize.width }} × {{ bannerStore.currentSize.height }}px</p>
         </div>
         <div class="bg-white/70 rounded-xl p-3 border border-primary-200">
           <p class="text-xs font-semibold text-primary-700 uppercase tracking-wide mb-1">Category</p>
-          <p class="font-bold text-primary-900">{{ bannerStore.currentSize.category }}</p>
+          <p class="text-sm font-bold text-primary-900">{{ bannerStore.currentSize.category }}</p>
         </div>
         <div class="bg-white/70 rounded-xl p-3 border border-primary-200">
           <p class="text-xs font-semibold text-primary-700 uppercase tracking-wide mb-1">Aspect Ratio</p>
-          <p class="font-bold text-primary-900">{{ (bannerStore.currentSize.width / bannerStore.currentSize.height).toFixed(2) }}:1</p>
+          <p class="text-sm font-bold text-primary-900">{{ (bannerStore.currentSize.width / bannerStore.currentSize.height).toFixed(2) }}:1</p>
         </div>
       </div>
     </div>
