@@ -13,42 +13,42 @@ const featuredTemplates = [
     id: 'tech-startup',
     name: 'Tech Startup',
     description: 'Modern gradient design perfect for technology companies',
-    thumbnail: '/banner-tech-startup.png',
+    thumbnail: './banner-tech-startup.png',
     category: 'Business',
   },
   {
     id: 'food-lifestyle',
     name: 'Food & Lifestyle',
     description: 'Vibrant food photography background',
-    thumbnail: '/banner-food.png',
+    thumbnail: './banner-food.png',
     category: 'Lifestyle',
   },
   {
     id: 'creative-art',
     name: 'Creative Art',
     description: 'Artistic colorful design for creative professionals',
-    thumbnail: '/banner-art.png',
+    thumbnail: './banner-art.png',
     category: 'Creative',
   },
   {
     id: 'personal-brand',
     name: 'Personal Brand',
     description: 'Professional personal branding template',
-    thumbnail: '/banner-personal-brand.png',
+    thumbnail: './banner-personal-brand.png',
     category: 'Personal',
   },
   {
     id: 'nutrition',
     name: 'Health & Nutrition',
     description: 'Clean health-focused design',
-    thumbnail: '/banner-nutrition.png',
+    thumbnail: './banner-nutrition.png',
     category: 'Health',
   },
   {
     id: 'quantum',
     name: 'Quantum Tech',
     description: 'Futuristic technology design',
-    thumbnail: '/banner-quantum.png',
+    thumbnail: './banner-quantum.png',
     category: 'Technology',
   },
 ]
@@ -287,7 +287,7 @@ function goToGallery() {
           </button>
 
           <!-- Carousel Content -->
-          <div class="overflow-hidden mx-16">
+          <div class="overflow-hidden mx-8 sm:mx-16">
             <div
               class="flex transition-transform duration-500 ease-out"
               :style="{ transform: `translateX(-${currentSlide * 33.333}%)` }"
@@ -295,18 +295,18 @@ function goToGallery() {
               <div
                 v-for="template in featuredTemplates"
                 :key="template.id"
-                class="w-1/3 flex-shrink-0 px-3"
+                class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-3"
               >
                 <div
                   @click="selectTemplate()"
                   class="group bg-white rounded-xl shadow-soft border border-neutral-200 overflow-hidden hover:shadow-medium transition-all duration-300 cursor-pointer hover:scale-105"
                 >
                   <!-- Template Preview -->
-                  <div class="aspect-video bg-neutral-100 overflow-hidden">
+                  <div class="aspect-[3/1] bg-neutral-100 overflow-hidden rounded-t-xl">
                     <img
                       :src="template.thumbnail"
                       :alt="template.name"
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
 
