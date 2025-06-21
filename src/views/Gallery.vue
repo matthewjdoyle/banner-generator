@@ -45,8 +45,7 @@ function getPreviewImage(template: BannerTemplate) {
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div v-for="template in bannerTemplates" :key="template.id" class="group">
         <div
-          @click="useTemplate(template)"
-          class="bg-white rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col cursor-pointer"
+          class="bg-white rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col relative"
         >
           <!-- Template Preview -->
           <div class="relative overflow-hidden">
@@ -57,6 +56,19 @@ function getPreviewImage(template: BannerTemplate) {
                 :alt="`${template.name} template preview`"
                 class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
               />
+            </div>
+
+            <!-- Hover Overlay with Use Template Button -->
+            <div
+              class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            >
+              <button
+                @click="useTemplate(template)"
+                class="bg-white text-gray-900 px-6 py-3 rounded-xl font-bold text-sm shadow-strong hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+              >
+                <span class="text-lg">🎨</span>
+                <span>Use Template</span>
+              </button>
             </div>
           </div>
 

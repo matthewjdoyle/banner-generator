@@ -1699,7 +1699,7 @@ export const useBannerStore = defineStore('banner', () => {
     const scheme = colorSchemes[Math.floor(Math.random() * colorSchemes.length)]()
 
     // Vary saturation and lightness for more interesting colors
-    const colors = scheme.map((hue, index) => {
+    const colors = scheme.map((hue) => {
       const saturation = Math.floor(50 + Math.random() * 40) // 50-90%
       const lightness = Math.floor(30 + Math.random() * 50) // 30-80%
       return `hsl(${Math.floor(hue)}, ${saturation}%, ${lightness}%)`
@@ -2007,7 +2007,16 @@ export const useBannerStore = defineStore('banner', () => {
             ? ['large', 'xlarge', 'xxlarge', 'xlarge', 'large'] // Medium banners
             : ['large', 'large', 'xlarge', 'large'] // Smaller banners still get minimum 72px
 
-    const fontFamilies = ['Inter, sans-serif', 'Space Grotesk, sans-serif', 'system-ui, sans-serif']
+    const fontFamilies = [
+      'Inter, sans-serif',
+      'Poppins, sans-serif',
+      'Montserrat, sans-serif',
+      'Bebas Neue, sans-serif',
+      'Playfair Display, serif',
+      'Space Grotesk, sans-serif',
+      'Dancing Script, cursive',
+      'JetBrains Mono, monospace',
+    ]
     const fontWeights = ['500', '600', '700', '800'] // medium to extra-bold
 
     // Position based on template
@@ -2229,6 +2238,7 @@ export const useBannerStore = defineStore('banner', () => {
       // Find the newly added icon and update its properties
       const newIcon = icons.value[icons.value.length - 1]
       if (newIcon) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { type, ...iconProps } = icon
         updateIcon(newIcon.id, iconProps)
       }

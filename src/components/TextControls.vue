@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useBannerStore, type TextElement } from '@/stores/banner'
+import { FONT_FAMILIES, getFontFamilyString } from '@/types'
 
 const bannerStore = useBannerStore()
 const selectedTextId = ref<string | null>(null)
@@ -8,21 +9,14 @@ const selectedTextId = ref<string | null>(null)
 // Form state for new text
 const newText = ref('')
 const textColor = ref('#FFFFFF')
-const fontSize = ref<'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'>('medium')
+const fontSize = ref<
+  'tiny' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'huge' | 'massive' | 'giant'
+>('medium')
 const fontFamily = ref('Inter')
 const fontWeight = ref('600')
 
-const fontFamilies = [
-  'Inter',
-  'Space Grotesk',
-  'Arial',
-  'Georgia',
-  'Times New Roman',
-  'Courier New',
-  'Helvetica',
-  'Verdana',
-  'Trebuchet MS',
-]
+// Show all fonts instead of filtering by category
+const allFonts = computed(() => FONT_FAMILIES)
 
 const fontWeights = [
   { value: '300', label: 'Light' },
@@ -31,6 +25,18 @@ const fontWeights = [
   { value: '600', label: 'Semi Bold' },
   { value: '700', label: 'Bold' },
   { value: '800', label: 'Extra Bold' },
+]
+
+const fontSizeOptions = [
+  { value: 'tiny', label: 'Tiny (50px)' },
+  { value: 'small', label: 'Small (56px)' },
+  { value: 'medium', label: 'Medium (64px)' },
+  { value: 'large', label: 'Large (72px)' },
+  { value: 'xlarge', label: 'X-Large (80px)' },
+  { value: 'xxlarge', label: 'XX-Large (96px)' },
+  { value: 'huge', label: 'Huge (120px)' },
+  { value: 'massive', label: 'Massive (150px)' },
+  { value: 'giant', label: 'Giant (192px)' },
 ]
 
 const selectedText = computed(() => {
@@ -52,7 +58,7 @@ function addText() {
     colorType: 'solid',
     gradientColors: ['#3B82F6', '#1E40AF'],
     gradientDirection: 45,
-    fontFamily: fontFamily.value,
+    fontFamily: getFontFamilyString(fontFamily.value),
     fontWeight: fontWeight.value,
     textAlign: 'left',
     letterSpacing: 0,
@@ -82,6 +88,10 @@ function selectText(textId: string) {
 
 function updateText(updates: Partial<TextElement>) {
   if (selectedTextId.value) {
+    // Convert font name to full font family string if updating fontFamily
+    if (updates.fontFamily) {
+      updates.fontFamily = getFontFamilyString(updates.fontFamily)
+    }
     bannerStore.updateTextElement(selectedTextId.value, updates)
   }
 }
@@ -106,6 +116,13 @@ function duplicateText() {
     bannerStore.addTextElement(textWithoutId)
   }
 }
+
+// Get the display name of the current font family
+function getFontDisplayName(fontFamilyString: string): string {
+  const fontName = fontFamilyString.split(',')[0].trim().replace(/['"]/g, '')
+  const font = FONT_FAMILIES.find((f) => f.name === fontName)
+  return font ? font.display : fontName
+}
 </script>
 
 <template>
@@ -118,8 +135,14 @@ function duplicateText() {
         class="bg-gradient-to-r from-primary-100 to-primary-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-primary-300/50"
       >
         <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium"
+          >
+            <span class="text-white text-lg">✏️</span>
+          </div>
           <div>
             <h4 class="font-bold text-primary-900">Add New Text</h4>
+            <p class="text-sm text-primary-700">Create text with amazing fonts</p>
           </div>
         </div>
       </div>
@@ -144,17 +167,33 @@ function duplicateText() {
           </div>
         </div>
 
+        <!-- Font Selection -->
+        <div>
+          <label class="block text-sm font-semibold text-primary-800 mb-2">Choose Font</label>
+          <select
+            v-model="fontFamily"
+            class="w-full px-4 py-3 border-2 border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white font-medium"
+          >
+            <option
+              v-for="font in allFonts"
+              :key="font.name"
+              :value="font.name"
+              :style="{ fontFamily: font.name }"
+            >
+              {{ font.display }}
+            </option>
+          </select>
+        </div>
+
         <div class="grid grid-cols-1 gap-2">
           <div>
             <select
               v-model="fontSize"
               class="w-full px-4 py-3 border-2 border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white font-medium"
             >
-              <option value="small">Small (24px)</option>
-              <option value="medium">Medium (36px)</option>
-              <option value="large">Large (48px)</option>
-              <option value="xlarge">X-Large (60px)</option>
-              <option value="xxlarge">XX-Large (72px)</option>
+              <option v-for="option in fontSizeOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
             </select>
           </div>
 
@@ -175,28 +214,15 @@ function duplicateText() {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 gap-2">
-          <div>
-            <select
-              v-model="fontFamily"
-              class="w-full px-4 py-3 border-2 border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white font-medium"
-            >
-              <option v-for="font in fontFamilies" :key="font" :value="font">
-                {{ font }}
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <select
-              v-model="fontWeight"
-              class="w-full px-4 py-3 border-2 border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white font-medium"
-            >
-              <option v-for="weight in fontWeights" :key="weight.value" :value="weight.value">
-                {{ weight.label }}
-              </option>
-            </select>
-          </div>
+        <div>
+          <select
+            v-model="fontWeight"
+            class="w-full px-4 py-3 border-2 border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white font-medium"
+          >
+            <option v-for="weight in fontWeights" :key="weight.value" :value="weight.value">
+              {{ weight.label }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -222,13 +248,14 @@ function duplicateText() {
             <div class="flex-1">
               <p
                 class="font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors truncate"
+                :style="{ fontFamily: textElement.fontFamily }"
               >
                 "{{ textElement.text }}"
               </p>
               <div class="flex items-center space-x-2 text-sm text-neutral-600 mt-1">
                 <span class="font-mono">{{ textElement.fontSize }}</span>
                 <span>•</span>
-                <span>{{ textElement.fontFamily }}</span>
+                <span>{{ getFontDisplayName(textElement.fontFamily) }}</span>
                 <span
                   v-if="textElement.colorType === 'gradient'"
                   class="text-accent-600 font-medium"
@@ -275,6 +302,7 @@ function duplicateText() {
           </div>
           <div>
             <h4 class="font-bold text-accent-900">Customize Text</h4>
+            <p class="text-sm text-accent-700">Fine-tune your text appearance</p>
           </div>
         </div>
       </div>
@@ -282,6 +310,7 @@ function duplicateText() {
       <div class="space-y-6">
         <!-- Text Content -->
         <div>
+          <label class="block text-sm font-semibold text-accent-800 mb-2">Text Content</label>
           <input
             type="text"
             :value="selectedText.text"
@@ -291,8 +320,28 @@ function duplicateText() {
           />
         </div>
 
+        <!-- Font Family -->
+        <div>
+          <label class="block text-sm font-semibold text-accent-800 mb-2">Font Family</label>
+          <select
+            :value="getFontDisplayName(selectedText.fontFamily)"
+            @change="updateText({ fontFamily: ($event.target as HTMLSelectElement).value })"
+            class="w-full px-4 py-3 border-2 border-accent-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent bg-white font-medium"
+          >
+            <option
+              v-for="font in FONT_FAMILIES"
+              :key="font.name"
+              :value="font.name"
+              :style="{ fontFamily: font.name }"
+            >
+              {{ font.display }}
+            </option>
+          </select>
+        </div>
+
         <!-- Color Type -->
         <div>
+          <label class="block text-sm font-semibold text-accent-800 mb-2">Color Style</label>
           <div class="grid grid-cols-2 gap-3">
             <button
               @click="updateText({ colorType: 'solid' })"
@@ -404,11 +453,9 @@ function duplicateText() {
               @change="updateText({ fontSize: ($event.target as HTMLSelectElement).value as any })"
               class="w-full px-4 py-3 border-2 border-accent-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent bg-white font-medium"
             >
-              <option value="small">Small (24px)</option>
-              <option value="medium">Medium (36px)</option>
-              <option value="large">Large (48px)</option>
-              <option value="xlarge">X-Large (60px)</option>
-              <option value="xxlarge">XX-Large (72px)</option>
+              <option v-for="option in fontSizeOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
             </select>
           </div>
           <div>
@@ -422,19 +469,6 @@ function duplicateText() {
               </option>
             </select>
           </div>
-        </div>
-
-        <!-- Font Family -->
-        <div>
-          <select
-            :value="selectedText.fontFamily"
-            @change="updateText({ fontFamily: ($event.target as HTMLSelectElement).value })"
-            class="w-full px-4 py-3 border-2 border-accent-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent bg-white font-medium"
-          >
-            <option v-for="font in fontFamilies" :key="font" :value="font">
-              {{ font }}
-            </option>
-          </select>
         </div>
 
         <!-- Position Controls -->
