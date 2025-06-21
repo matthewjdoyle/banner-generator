@@ -413,9 +413,7 @@ function goToGallery() {
         <h2 class="text-3xl lg:text-4xl font-bold mb-4 font-display">
           Ready to Create Amazing Banners?
         </h2>
-        <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-          Join thousands of creators who trust our platform for their design needs
-        </p>
+        <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">Give it a go, it's free!</p>
         <div
           class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
         >
