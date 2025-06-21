@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref } from 'vue'
 import type { TextElement, BannerImage, BannerIcon } from '@/types'
 
 type AnyElement = TextElement | BannerImage | BannerIcon
@@ -13,7 +13,7 @@ export function useElementControls<T extends AnyElement>(
 
   const selectedElement = computed(() => {
     if (!selectedElementId.value) return null
-    return elements.value.find((el) => el.id === selectedElementId.value) || null
+    return elements.value.find((el: T) => el.id === selectedElementId.value) || null
   })
 
   const hasSelection = computed(() => selectedElement.value !== null)

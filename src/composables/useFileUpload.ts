@@ -11,27 +11,41 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
 
   const fileInput = ref<HTMLInputElement>()
   const isUploading = ref(false)
-  const uploadError = ref<string | null>(null)
+  const error = ref<string | null>(null)
 
   function triggerFileSelect() {
     fileInput.value?.click()
   }
 
   function validateFile(file: File): boolean {
-    // Check file type
-    if (accept !== '*/*' && !file.type.match(accept.replace('*', '.*'))) {
-      uploadError.value = `Invalid file type. Expected: ${accept}`
-      return false
-    }
-
     // Check file size
-    const fileSizeMB = file.size / (1024 * 1024)
-    if (fileSizeMB > maxSize) {
-      uploadError.value = `File too large. Maximum size: ${maxSize}MB`
+    if (file.size > maxSize * 1024 * 1024) {
+      error.value = `File size must be less than ${maxSize}MB`
       return false
     }
 
-    uploadError.value = null
+    // Check file type if accept is specified
+    if (accept && accept !== '*') {
+      const acceptTypes = accept.split(',').map((type) => type.trim())
+      const fileType = file.type
+      const fileExtension = `.${file.name.split('.').pop()?.toLowerCase()}`
+
+      const isValidType = acceptTypes.some((acceptType) => {
+        if (acceptType.startsWith('.')) {
+          return acceptType === fileExtension
+        }
+        if (acceptType.includes('/*')) {
+          return fileType.startsWith(acceptType.replace('/*', ''))
+        }
+        return fileType === acceptType
+      })
+
+      if (!isValidType) {
+        error.value = `File type not supported. Accepted types: ${accept}`
+        return false
+      }
+    }
+
     return true
   }
 
@@ -39,40 +53,38 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = (e) => resolve(e.target?.result as string)
-      reader.onerror = reject
+      reader.onerror = () => reject(new Error('Failed to read file'))
       reader.readAsDataURL(file)
     })
   }
 
   async function handleFileSelect(event: Event, onFileLoad: (src: string, file: File) => void) {
-    const target = event.target as HTMLInputElement
-    const files = target.files
+    const input = event.target as HTMLInputElement
+    const files = input.files
 
     if (!files || files.length === 0) return
 
+    error.value = null
     isUploading.value = true
-    uploadError.value = null
 
     try {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i]
+      const filesToProcess = multiple ? Array.from(files) : [files[0]]
 
+      for (const file of filesToProcess) {
         if (!validateFile(file)) {
-          continue
+          isUploading.value = false
+          return
         }
 
         const src = await readFileAsDataURL(file)
         onFileLoad(src, file)
-
-        if (!multiple) break
       }
-    } catch (error) {
-      uploadError.value = 'Failed to read file'
-      console.error('File upload error:', error)
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Failed to process file'
     } finally {
       isUploading.value = false
-      // Reset input value
-      if (target) target.value = ''
+      // Reset input value to allow selecting the same file again
+      if (input) input.value = ''
     }
   }
 
@@ -82,42 +94,41 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
     input.accept = accept
     input.multiple = multiple
     input.style.display = 'none'
+
+    input.addEventListener('change', (event) => {
+      // This will be handled by the component using this composable
+      console.log('File input changed', event)
+    })
+
     return input
   }
 
-  // Drag and drop functionality
-  const isDragOver = ref(false)
-
+  // Drag and drop handlers
   function handleDragOver(event: DragEvent) {
     event.preventDefault()
-    isDragOver.value = true
+    event.stopPropagation()
   }
 
   function handleDragLeave(event: DragEvent) {
     event.preventDefault()
-    isDragOver.value = false
+    event.stopPropagation()
   }
 
   function handleDrop(event: DragEvent, onFileLoad: (src: string, file: File) => void) {
     event.preventDefault()
-    isDragOver.value = false
+    event.stopPropagation()
 
     const files = event.dataTransfer?.files
-    if (!files) return
+    if (!files || files.length === 0) return
 
     // Create a mock event for handleFileSelect
-    const mockEvent = {
-      target: { files },
-    } as Event
-
-    handleFileSelect(mockEvent, onFileLoad)
+    handleFileSelect({ target: { files } } as unknown as Event, onFileLoad)
   }
 
   return {
     fileInput,
     isUploading,
-    uploadError,
-    isDragOver,
+    error,
     triggerFileSelect,
     validateFile,
     readFileAsDataURL,
