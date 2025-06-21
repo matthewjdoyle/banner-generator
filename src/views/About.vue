@@ -106,7 +106,7 @@
           class="bg-white rounded-2xl p-8 lg:p-12 shadow-soft border border-neutral-100 text-center"
         >
           <h2 class="text-3xl font-bold text-neutral-900 mb-4 font-display">
-            Built by Dr. M. Doyle
+            Built by Dr M Doyle
           </h2>
           <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
             I made this banner generator to help people create and customize great-looking banners
