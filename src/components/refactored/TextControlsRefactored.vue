@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref } from 'vue'
 import { useBannerStore } from '@/stores/useBannerStore'
 import { useElementControls } from '@/composables/useElementControls'
 import BaseCard from '@/components/ui/BaseCard.vue'
