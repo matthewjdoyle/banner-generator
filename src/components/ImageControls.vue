@@ -365,8 +365,8 @@ const sampleImages = [
             <span class="text-white text-lg">🤖</span>
           </div>
           <div>
-            <h4 class="font-bold text-purple-900">AI Image Generation</h4>
-            <p class="text-sm text-purple-700">Create custom images with AI - completely free!</p>
+            <h4 class="font-bold text-purple-900">Want AI assets?</h4>
+            <p class="text-sm text-purple-700">These are some free-use tools</p>
           </div>
         </div>
       </div>
