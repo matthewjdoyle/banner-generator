@@ -11,6 +11,7 @@ import type {
   BannerTemplate,
   ExportOptions,
 } from '@/types'
+import { FONT_FAMILIES, getFontFamilyString } from '@/types'
 import { ColorService } from '@/services/colorService'
 import { CanvasService } from '@/services/canvasService'
 import { ElementService } from '@/services/elementService'
@@ -268,10 +269,16 @@ export const useBannerStore = defineStore('banner', () => {
         'Limited Time',
       ]
 
+      // Select random font from available fonts
+      const randomFont = FONT_FAMILIES[Math.floor(Math.random() * FONT_FAMILIES.length)]
+      const selectedFontFamily = getFontFamilyString(randomFont.name)
+
       addTextElement({
         text: sampleTexts[Math.floor(Math.random() * sampleTexts.length)],
         color: textColors[i % textColors.length] || '#FFFFFF',
         fontSize: ['small', 'medium', 'large', 'xlarge'][Math.floor(Math.random() * 4)] as any,
+        fontFamily: selectedFontFamily,
+        fontWeight: ['500', '600', '700', '800'][Math.floor(Math.random() * 4)],
         x: Math.random() * (state.value.currentSize.width * 0.6),
         y: Math.random() * (state.value.currentSize.height * 0.6) + 50,
       })

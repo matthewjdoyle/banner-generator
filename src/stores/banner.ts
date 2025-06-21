@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { BannerTemplate } from './templates'
+import { FONT_FAMILIES, getFontFamilyString } from '@/types'
 
 export interface TextElement {
   id: string
@@ -2007,16 +2008,17 @@ export const useBannerStore = defineStore('banner', () => {
             ? ['large', 'xlarge', 'xxlarge', 'xlarge', 'large'] // Medium banners
             : ['large', 'large', 'xlarge', 'large'] // Smaller banners still get minimum 72px
 
-    const fontFamilies = [
-      'Inter, sans-serif',
-      'Poppins, sans-serif',
-      'Montserrat, sans-serif',
-      'Bebas Neue, sans-serif',
-      'Playfair Display, serif',
-      'Space Grotesk, sans-serif',
-      'Dancing Script, cursive',
-      'JetBrains Mono, monospace',
-    ]
+    // Select random font from available fonts using proper font family string
+    const randomFont = FONT_FAMILIES[Math.floor(Math.random() * FONT_FAMILIES.length)]
+    const selectedFontFamily = getFontFamilyString(randomFont.name)
+
+    console.log('🔤 Font Selected:', {
+      fontName: randomFont.name,
+      fontDisplay: randomFont.display,
+      fontCategory: randomFont.category,
+      fontFamily: selectedFontFamily,
+    })
+
     const fontWeights = ['500', '600', '700', '800'] // medium to extra-bold
 
     // Position based on template
@@ -2074,7 +2076,7 @@ export const useBannerStore = defineStore('banner', () => {
       colorType: useGradientText ? 'gradient' : 'solid',
       gradientColors: useGradientText ? [gradientColor1, gradientColor2] : undefined,
       gradientDirection: Math.random() * 360,
-      fontFamily: fontFamilies[Math.floor(Math.random() * fontFamilies.length)],
+      fontFamily: selectedFontFamily,
       fontWeight: fontWeights[Math.floor(Math.random() * fontWeights.length)],
       textAlign,
       letterSpacing: Math.random() > 0.7 ? Math.random() * 2 : 0,
