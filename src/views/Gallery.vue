@@ -5,14 +5,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { RouterLink, useRouter } from 'vue-router'
-import { bannerTemplates } from '@/stores/templates'
+import { useRouter } from 'vue-router'
+import { bannerTemplates, type BannerTemplate } from '@/stores/templates'
 import { useBannerStore } from '@/stores/banner'
 
 const router = useRouter()
 const bannerStore = useBannerStore()
 
-function useTemplate(template: any) {
+function useTemplate(template: BannerTemplate) {
   // Load the template into the banner store
   bannerStore.loadTemplate(template)
 
@@ -21,7 +21,7 @@ function useTemplate(template: any) {
 }
 
 // Get preview image URL for template
-function getPreviewImage(template: any) {
+function getPreviewImage(template: BannerTemplate) {
   const imageMap: { [key: string]: string } = {
     'tech-startup': 'banner-tech-startup.png',
     'creative-agency': 'banner-creative.png',
@@ -45,7 +45,8 @@ function getPreviewImage(template: any) {
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div v-for="template in bannerTemplates" :key="template.id" class="group">
         <div
-          class="bg-white rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col"
+          @click="useTemplate(template)"
+          class="bg-white rounded-2xl shadow-soft hover:shadow-strong transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col cursor-pointer"
         >
           <!-- Template Preview -->
           <div class="relative overflow-hidden">
@@ -54,20 +55,8 @@ function getPreviewImage(template: any) {
               <img
                 :src="getPreviewImage(template)"
                 :alt="`${template.name} template preview`"
-                class="max-w-full max-h-full object-contain"
+                class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
               />
-
-              <!-- Hover overlay -->
-              <div
-                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity duration-300 flex items-center justify-center"
-              >
-                <button
-                  @click="useTemplate(template)"
-                  class="opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100 bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold shadow-strong hover:shadow-xl text-sm"
-                >
-                  Use Template
-                </button>
-              </div>
             </div>
           </div>
 
@@ -79,16 +68,6 @@ function getPreviewImage(template: any) {
               >
                 {{ template.name }}
               </h3>
-            </div>
-
-            <!-- Action Button -->
-            <div class="flex justify-center">
-              <button
-                @click="useTemplate(template)"
-                class="bg-gradient-primary text-white py-2 px-4 rounded-lg font-semibold hover:shadow-medium transition-all duration-200 text-sm"
-              >
-                Use Template
-              </button>
             </div>
           </div>
         </div>

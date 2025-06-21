@@ -80,15 +80,6 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
 
 <template>
   <div class="space-y-6">
-    <!-- Header -->
-    <div class="text-center">
-      <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mx-auto mb-3 shadow-medium">
-        <span class="text-white text-xl">⭐</span>
-      </div>
-      <h3 class="text-xl font-bold text-neutral-900 font-display">Icons & Shapes</h3>
-      <p class="text-sm text-neutral-600 mt-1">Add visual elements to enhance your banner</p>
-    </div>
-    
     <!-- Category Filter -->
     <div class="bg-gradient-to-br from-accent-50 to-accent-100 rounded-2xl p-6 border border-accent-200 shadow-soft">
       <div class="bg-gradient-to-r from-accent-100 to-accent-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-accent-300/50">
@@ -102,7 +93,7 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
           </div>
         </div>
       </div>
-      
+
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-semibold text-accent-800 mb-2">Category</label>
@@ -125,60 +116,60 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
               :title="icon.name"
             >
               <!-- SVG Shape Preview -->
-              <svg 
+              <svg
                 v-if="icon.svg.startsWith('svg-') || ['circle', 'square', 'triangle', 'diamond', 'hexagon', 'pentagon', 'star', 'heart', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'plus', 'cross', 'check'].includes(icon.svg)"
-                width="20" 
-                height="20" 
-                viewBox="0 0 24 24" 
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
                 fill="currentColor"
                 class="text-neutral-600 group-hover:text-accent-600 transition-colors duration-300"
               >
                 <!-- Circle -->
                 <circle v-if="icon.svg === 'circle'" cx="12" cy="12" r="8"/>
-                
+
                 <!-- Square -->
                 <rect v-else-if="icon.svg === 'square'" x="4" y="4" width="16" height="16"/>
-                
+
                 <!-- Triangle -->
                 <polygon v-else-if="icon.svg === 'triangle'" points="12,4 20,20 4,20"/>
-                
+
                 <!-- Diamond -->
                 <polygon v-else-if="icon.svg === 'diamond'" points="12,2 22,12 12,22 2,12"/>
-                
+
                 <!-- Hexagon -->
                 <polygon v-else-if="icon.svg === 'hexagon'" points="17.5,5.5 17.5,18.5 12,22 6.5,18.5 6.5,5.5 12,2"/>
-                
+
                 <!-- Pentagon -->
                 <polygon v-else-if="icon.svg === 'pentagon'" points="12,2 22,9 18,20 6,20 2,9"/>
-                
+
                 <!-- Star -->
                 <polygon v-else-if="icon.svg === 'star'" points="12,2 15,9 22,9 17,14 19,22 12,18 5,22 7,14 2,9 9,9"/>
-                
+
                 <!-- Heart -->
                 <path v-else-if="icon.svg === 'heart'" d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z"/>
-                
+
                 <!-- Arrow Right -->
                 <path v-else-if="icon.svg === 'arrow-right'" d="M8,5v3h8l-3-3 1.5-1.5L20,9l-5.5,5.5L13,13l3-3H8v3l-3-3L8,5z"/>
-                
+
                 <!-- Arrow Left -->
                 <path v-else-if="icon.svg === 'arrow-left'" d="M16,19v-3H8l3,3-1.5,1.5L4,15l5.5-5.5L11,11l-3,3h8v-3l3,3L16,19z"/>
-                
+
                 <!-- Arrow Up -->
                 <path v-else-if="icon.svg === 'arrow-up'" d="M19,16h-3v-8l3,3 1.5-1.5L15,4 9.5,9.5 11,11l3-3v8H11l3,3L19,16z"/>
-                
+
                 <!-- Arrow Down -->
                 <path v-else-if="icon.svg === 'arrow-down'" d="M5,8h3v8l-3-3-1.5,1.5L9,20l5.5-5.5L13,13l-3,3V8h3l-3-3L5,8z"/>
-                
+
                 <!-- Plus -->
                 <path v-else-if="icon.svg === 'plus'" d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z"/>
-                
+
                 <!-- Cross -->
                 <path v-else-if="icon.svg === 'cross'" d="M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12 19,6.41z"/>
-                
+
                 <!-- Check -->
                 <path v-else-if="icon.svg === 'check'" d="M9,16.17L4.83,12l-1.42,1.41L9,19 21,7l-1.41-1.41L9,16.17z"/>
               </svg>
-              
+
               <!-- Emoji/Unicode Character -->
               <span v-else class="text-lg group-hover:scale-110 transition-transform duration-300">{{ icon.svg }}</span>
             </button>
@@ -207,48 +198,48 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
             <div class="flex items-center space-x-3">
               <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center">
                 <!-- SVG Shape Preview for current icons -->
-                <svg 
+                <svg
                   v-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg?.startsWith('svg-') || ['circle', 'square', 'triangle', 'diamond', 'hexagon', 'pentagon', 'star', 'heart', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'plus', 'cross', 'check'].includes(bannerStore.availableIcons.find(i => i.id === icon.type)?.svg || '')"
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
                   fill="currentColor"
                   class="text-neutral-600"
                 >
                   <!-- Circle -->
                   <circle v-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'circle'" cx="12" cy="12" r="8"/>
-                  
+
                   <!-- Square -->
                   <rect v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'square'" x="4" y="4" width="16" height="16"/>
-                  
+
                   <!-- Triangle -->
                   <polygon v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'triangle'" points="12,4 20,20 4,20"/>
-                  
+
                   <!-- Diamond -->
                   <polygon v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'diamond'" points="12,2 22,12 12,22 2,12"/>
-                  
+
                   <!-- Hexagon -->
                   <polygon v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'hexagon'" points="17.5,5.5 17.5,18.5 12,22 6.5,18.5 6.5,5.5 12,2"/>
-                  
+
                   <!-- Pentagon -->
                   <polygon v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'pentagon'" points="12,2 22,9 18,20 6,20 2,9"/>
-                  
+
                   <!-- Star -->
                   <polygon v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'star'" points="12,2 15,9 22,9 17,14 19,22 12,18 5,22 7,14 2,9 9,9"/>
-                  
+
                   <!-- Heart -->
                   <path v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'heart'" d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z"/>
-                  
+
                   <!-- Plus -->
                   <path v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'plus'" d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z"/>
-                  
+
                   <!-- Cross -->
                   <path v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'cross'" d="M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12 19,6.41z"/>
-                  
+
                   <!-- Check -->
                   <path v-else-if="bannerStore.availableIcons.find(i => i.id === icon.type)?.svg === 'check'" d="M9,16.17L4.83,12l-1.42,1.41L9,19 21,7l-1.41-1.41L9,16.17z"/>
                 </svg>
-                
+
                 <!-- Emoji/Unicode Character -->
                 <span v-else class="text-lg">{{ bannerStore.availableIcons.find(i => i.id === icon.type)?.svg }}</span>
               </div>
@@ -273,10 +264,10 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
               </svg>
             </div>
           </div>
-          
+
           <!-- Active indicator background -->
-          <div 
-            v-if="selectedIconId === icon.id" 
+          <div
+            v-if="selectedIconId === icon.id"
             class="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-transparent opacity-50"
           ></div>
         </div>
@@ -296,7 +287,7 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
           </div>
         </div>
       </div>
-      
+
       <div class="space-y-6">
         <!-- Color Type -->
         <div>
@@ -373,7 +364,7 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
                 />
               </div>
             </div>
-            
+
             <div>
               <label class="block text-xs font-medium text-primary-700 mb-2">Direction: {{ selectedIcon.gradientDirection || 45 }}°</label>
               <input
@@ -525,7 +516,7 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
                 />
               </button>
             </div>
-            
+
             <div v-if="selectedIcon.shadow.enabled" class="space-y-3">
               <div>
                 <label class="block text-xs font-medium text-primary-700 mb-1">Shadow Color</label>
@@ -536,7 +527,7 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
                   class="w-full h-10 border-2 border-primary-200 rounded-xl cursor-pointer shadow-soft"
                 />
               </div>
-              
+
               <div class="grid grid-cols-3 gap-3">
                 <div>
                   <label class="block text-xs font-medium text-primary-700 mb-1">Blur: {{ selectedIcon.shadow.blur }}px</label>
@@ -603,4 +594,4 @@ function applyGradientPreset(preset: { name: string; colors: string[]; direction
 .text-shadow {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-</style> 
+</style>

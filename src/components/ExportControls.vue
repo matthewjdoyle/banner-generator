@@ -98,17 +98,6 @@ const socialPlatforms = [
 
 <template>
   <div class="space-y-6">
-    <!-- Header -->
-    <div class="text-center">
-      <div
-        class="w-12 h-12 bg-gradient-secondary rounded-xl flex items-center justify-center mx-auto mb-3 shadow-medium"
-      >
-        <span class="text-white text-xl">💾</span>
-      </div>
-      <h3 class="text-xl font-bold text-neutral-900 font-display">Export & Download</h3>
-      <p class="text-sm text-neutral-600 mt-1">Save your banner in high quality</p>
-    </div>
-
     <!-- Export Settings -->
     <div
       class="bg-gradient-to-br from-secondary-50 to-secondary-100 rounded-2xl p-6 border border-secondary-200 shadow-soft"
@@ -328,65 +317,6 @@ const socialPlatforms = [
           <span class="text-lg">🗑️</span>
           <span>Clear All Elements</span>
         </button>
-      </div>
-    </div>
-
-    <!-- Pro Tips -->
-    <div
-      class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-6 border border-primary-200 shadow-soft"
-    >
-      <div
-        class="bg-gradient-to-r from-primary-100 to-primary-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-primary-300/50"
-      >
-        <div class="flex items-center space-x-3">
-          <div
-            class="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium"
-          >
-            <span class="text-white text-lg">💡</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-primary-900">Export Tips</h4>
-            <p class="text-sm text-primary-700">Get the best results</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="space-y-3">
-        <div class="flex items-start space-x-3">
-          <div
-            class="w-6 h-6 bg-primary-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-          >
-            <span class="text-primary-700 text-xs font-bold">1</span>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-primary-900">Use PNG for best quality</p>
-            <p class="text-xs text-primary-700">Supports transparency and lossless compression</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-3">
-          <div
-            class="w-6 h-6 bg-primary-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-          >
-            <span class="text-primary-700 text-xs font-bold">2</span>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-primary-900">Choose JPEG for smaller files</p>
-            <p class="text-xs text-primary-700">Better for web use and faster loading</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-3">
-          <div
-            class="w-6 h-6 bg-primary-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-          >
-            <span class="text-primary-700 text-xs font-bold">3</span>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-primary-900">Check platform requirements</p>
-            <p class="text-xs text-primary-700">
-              Each social media platform has optimal dimensions
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </div>

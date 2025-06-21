@@ -39,7 +39,7 @@ function createCustomBackground() {
 function handleImageUpload(event: Event) {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
-  
+
   if (file && file.type.startsWith('image/')) {
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -77,15 +77,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
 
 <template>
   <div class="space-y-6">
-    <!-- Header -->
-    <div class="text-center">
-      <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mx-auto mb-3 shadow-medium">
-        <span class="text-white text-xl">🎨</span>
-      </div>
-      <h3 class="text-xl font-bold text-neutral-900 font-display">Background Style</h3>
-      <p class="text-sm text-neutral-600 mt-1">Choose the perfect backdrop for your banner</p>
-    </div>
-    
+
     <!-- Background Type Selection -->
     <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-6 border border-primary-200 shadow-soft">
       <div class="bg-gradient-to-r from-primary-100 to-primary-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-primary-300/50">
@@ -99,7 +91,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
           </div>
         </div>
       </div>
-      
+
       <div class="grid grid-cols-2 gap-3">
         <button
           @click="selectedType = 'solid'"
@@ -175,7 +167,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             </div>
           </div>
         </div>
-        
+
         <div class="grid grid-cols-2 gap-3">
           <!-- Social Media Banner Images -->
           <div
@@ -185,7 +177,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1549692520-acc6669e2f0c?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Coffee Shop</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1493612276216-ee3925520721?w=1200&h=800&fit=crop', 'Minimalist Workspace')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -193,7 +185,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1493612276216-ee3925520721?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Workspace</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=1200&h=800&fit=crop', 'Colourful')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -201,7 +193,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Colourful</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1528543606781-2f6e6857f318?w=1200&h=800&fit=crop', 'Travel Adventure')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -209,7 +201,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1528543606781-2f6e6857f318?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Travel</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&h=800&fit=crop', 'Fashion Style')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -217,7 +209,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Fashion</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&h=800&fit=crop', 'Food & Lifestyle')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -225,7 +217,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Food</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop', 'Business Team')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -233,7 +225,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             <div class="w-full h-20 rounded-lg bg-cover bg-center shadow-soft" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop')"></div>
             <h4 class="text-xs font-semibold text-secondary-900 text-center mt-2 group-hover:text-secondary-700">Business</h4>
           </div>
-          
+
           <div
             @click="selectStockImage('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=800&fit=crop', 'Fitness Lifestyle')"
             class="relative p-2 rounded-xl border-2 border-secondary-200 cursor-pointer transition-all duration-300 hover:shadow-medium hover:border-secondary-300 bg-white group"
@@ -243,7 +235,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
           </div>
         </div>
       </div>
-      
+
       <!-- Custom Upload Section -->
       <div class="bg-gradient-to-br from-accent-50 to-accent-100 rounded-2xl p-6 border border-accent-200 shadow-soft">
         <div class="bg-gradient-to-r from-accent-100 to-accent-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-accent-300/50">
@@ -257,7 +249,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
             </div>
           </div>
         </div>
-        
+
         <div class="border-2 border-dashed border-accent-300 rounded-xl p-8 text-center hover:border-accent-400 transition-colors bg-white/50">
           <div class="text-4xl mb-3">📸</div>
           <p class="text-accent-700 font-medium mb-4">Click to upload your background image</p>
@@ -293,7 +285,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
           </div>
         </div>
       </div>
-      
+
       <div class="grid grid-cols-2 gap-3">
         <div
           v-for="background in backgroundsByType"
@@ -322,7 +314,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
               </div>
             </div>
           </div>
-          
+
           <!-- Background Name -->
           <h4 class="text-sm font-semibold text-accent-900 text-center group-hover:text-accent-700 transition-colors">
             {{ background.name }}
@@ -379,7 +371,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
           </div>
         </div>
       </div>
-      
+
       <div class="grid grid-cols-2 gap-3">
         <div
           v-for="background in bannerStore.backgroundOptions.filter(bg => bg.type === 'image')"
@@ -408,7 +400,7 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
               </div>
             </div>
           </div>
-          
+
           <!-- Background Name -->
           <h4 class="text-sm font-semibold text-secondary-900 text-center group-hover:text-secondary-700 transition-colors truncate">
             {{ background.name }}
@@ -430,12 +422,12 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
           </div>
         </div>
       </div>
-      
+
       <!-- Color Controls -->
       <div class="space-y-4">
-        <div 
-          v-for="(color, index) in currentFancyBackground.patternColors" 
-          :key="index" 
+        <div
+          v-for="(color, index) in currentFancyBackground.patternColors"
+          :key="index"
           class="flex items-center space-x-3"
         >
           <label class="text-sm font-semibold text-accent-800 w-20">
@@ -483,14 +475,14 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
           </div>
         </div>
       </div>
-      
+
       <div class="space-y-6">
         <!-- Visual Preview -->
         <div class="relative bg-white rounded-xl border-2 border-secondary-200 overflow-hidden shadow-soft">
           <div class="aspect-video relative bg-neutral-100">
-            <div 
+            <div
               class="absolute inset-0 bg-cover bg-center"
-              :style="{ 
+              :style="{
                 backgroundImage: `url('${bannerStore.currentBackground.value}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: `center ${bannerStore.currentBackground.cropY || 50}%`
@@ -564,107 +556,8 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
         </div>
       </div>
     </div>
-
-    <!-- Current Background Info -->
-    <div class="bg-gradient-to-r from-neutral-50 to-neutral-100 rounded-2xl p-6 border border-neutral-200 shadow-soft">
-      <div class="bg-gradient-to-r from-neutral-100 to-neutral-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-neutral-300/50">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-neutral-600 rounded-xl flex items-center justify-center">
-            <span class="text-white text-lg">📊</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-neutral-900">Current Background</h4>
-            <p class="text-sm text-neutral-600">Active background settings</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-sm font-semibold text-neutral-700">Name:</span>
-          <span class="text-sm text-neutral-900 font-medium">{{ bannerStore.currentBackground.name }}</span>
-        </div>
-        <div class="flex items-center justify-between">
-          <span class="text-sm font-semibold text-neutral-700">Type:</span>
-          <span class="text-sm text-neutral-900 font-medium capitalize">{{ bannerStore.currentBackground.type === 'gradient' ? 'Gradient' : bannerStore.currentBackground.type === 'image' ? 'Image' : bannerStore.currentBackground.type === 'fancy' ? 'Pattern' : 'Solid Color' }}</span>
-        </div>
-        <div
-          v-if="bannerStore.currentBackground.type === 'gradient'"
-          class="flex items-center justify-between"
-        >
-          <span class="text-sm font-semibold text-neutral-700">Colors:</span>
-          <div class="flex space-x-1">
-            <div
-              v-for="color in bannerStore.currentBackground.gradientColors"
-              :key="color"
-              class="w-6 h-6 rounded-full border-2 border-neutral-300 shadow-soft"
-              :style="{ backgroundColor: color }"
-            ></div>
-          </div>
-        </div>
-        <div v-else-if="bannerStore.currentBackground.type === 'solid'" class="flex items-center justify-between">
-          <span class="text-sm font-semibold text-neutral-700">Color:</span>
-          <div class="flex items-center space-x-2">
-            <div
-              class="w-6 h-6 rounded-full border-2 border-neutral-300 shadow-soft"
-              :style="{ backgroundColor: bannerStore.currentBackground.value }"
-            ></div>
-            <span class="font-mono text-xs text-neutral-600">{{ bannerStore.currentBackground.value }}</span>
-          </div>
-        </div>
-        <div v-else-if="bannerStore.currentBackground.type === 'image'" class="flex items-center justify-between">
-          <span class="text-sm font-semibold text-neutral-700">Source:</span>
-          <span class="text-sm text-neutral-900 font-medium">Custom uploaded image</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pro Tips -->
-    <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-6 border border-primary-200 shadow-soft">
-      <div class="bg-gradient-to-r from-primary-100 to-primary-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-primary-300/50">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-medium">
-            <span class="text-white text-lg">💡</span>
-          </div>
-          <div>
-            <h4 class="font-bold text-primary-900">Design Tips</h4>
-            <p class="text-sm text-primary-700">Best practices for backgrounds</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="space-y-3">
-        <div class="flex items-start space-x-3">
-          <div class="w-6 h-6 bg-primary-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span class="text-primary-700 text-xs font-bold">1</span>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-primary-900">Use gradients for modern, vibrant designs</p>
-            <p class="text-xs text-primary-700">Perfect for tech and creative brands</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-3">
-          <div class="w-6 h-6 bg-primary-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span class="text-primary-700 text-xs font-bold">2</span>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-primary-900">Solid colors work well for minimalist looks</p>
-            <p class="text-xs text-primary-700">Clean and professional appearance</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-3">
-          <div class="w-6 h-6 bg-primary-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span class="text-primary-700 text-xs font-bold">3</span>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-primary-900">Ensure good contrast with your text</p>
-            <p class="text-xs text-primary-700">Dark backgrounds make bright text pop</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-</template> 
+</template>
 
 <style scoped>
 /* Custom slider styling */
@@ -707,4 +600,4 @@ function updateCrop(cropX: number, cropY: number, scale: number) {
   ring: 2px;
   ring-color: #fd7f28;
 }
-</style> 
+</style>

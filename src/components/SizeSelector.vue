@@ -36,15 +36,6 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
 
 <template>
   <div class="space-y-6">
-    <!-- Header -->
-    <div class="text-center">
-      <div class="w-12 h-12 bg-gradient-accent rounded-xl flex items-center justify-center mx-auto mb-3 shadow-medium">
-        <span class="text-white text-xl">📐</span>
-      </div>
-      <h3 class="text-xl font-bold text-neutral-900 font-display">Banner Size</h3>
-      <p class="text-sm text-neutral-600 mt-1">Choose the perfect dimensions for your banner</p>
-    </div>
-    
     <!-- Category Selection -->
     <div>
       <label class="block text-sm font-semibold text-neutral-700 mb-3">Platform Category</label>
@@ -83,14 +74,14 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
           <div class="flex items-center justify-between relative z-10">
             <div class="flex-1">
               <div class="flex items-center space-x-3">
-                <div 
+                <div
                   :class="[
                     'w-8 h-6 rounded border-2 flex-shrink-0',
                     bannerStore.currentSize.id === size.id
                       ? 'border-primary-400 bg-primary-200'
                       : 'border-neutral-300 bg-neutral-100'
                   ]"
-                  :style="{ 
+                  :style="{
                     aspectRatio: size.width / size.height,
                     maxWidth: '32px'
                   }"
@@ -117,10 +108,10 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
               </svg>
             </div>
           </div>
-          
+
           <!-- Active indicator background -->
-          <div 
-            v-if="bannerStore.currentSize.id === size.id" 
+          <div
+            v-if="bannerStore.currentSize.id === size.id"
             class="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-transparent opacity-50"
           ></div>
         </div>
@@ -140,7 +131,7 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
           </div>
         </div>
       </div>
-      
+
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
           <label class="block text-sm font-semibold text-accent-800 mb-2">Width (px)</label>
@@ -165,20 +156,20 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
           />
         </div>
       </div>
-      
+
       <div class="flex space-x-3 mb-3">
         <button @click="applyCustomSize" class="btn-accent flex-1">
           ✨ Apply Custom Size
         </button>
-        <button 
+        <button
           v-if="showCustomInput"
-          @click="showCustomInput = false" 
+          @click="showCustomInput = false"
           class="btn-secondary"
         >
           Cancel
         </button>
       </div>
-      
+
       <div class="bg-white/50 rounded-xl p-3 border border-accent-200">
         <p class="text-xs text-accent-700 font-medium">
           💡 <strong>Pro Tip:</strong> Common aspect ratios work best - 16:9 (1920×1080), 4:3 (1200×900), 1:1 (1080×1080)
@@ -199,7 +190,7 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
           </div>
         </div>
       </div>
-      
+
       <div class="grid grid-cols-2 gap-4">
         <div class="bg-white/70 rounded-xl p-3 border border-primary-200">
           <p class="text-xs font-semibold text-primary-700 uppercase tracking-wide mb-1">Name</p>
@@ -220,4 +211,4 @@ function selectSizeHandler(size: { id: string; name: string; width: number; heig
       </div>
     </div>
   </div>
-</template> 
+</template>

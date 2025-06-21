@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, provide } from 'vue'
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
 import ErrorBoundary from '@/components/ErrorBoundary.vue'
 import PerformanceMonitor from '@/components/PerformanceMonitor.vue'
 import { useAccessibility } from '@/composables/useAccessibility'
+
+// Get current route
+const route = useRoute()
 
 // Environment check
 const isDevelopment = ref(import.meta.env.DEV)
@@ -13,7 +16,6 @@ const isDevelopment = ref(import.meta.env.DEV)
 // Ko-fi popup state
 const showKofiPopup = ref(false)
 const kofiTimer = ref<number | null>(null)
-
 
 // Sharing popup state
 const showSharingPopup = ref(false)
@@ -140,10 +142,7 @@ onUnmounted(() => {
     fallback="We're sorry, but something went wrong with the banner generator. Please refresh the page to continue."
     @error="handleAppError"
   >
-    <div
-      id="app"
-      class="min-h-screen bg-gradient-to-br from-neutral-50 to-primary-50/30 flex flex-col"
-    >
+    <div id="app" class="h-full bg-gradient-to-br from-neutral-50 to-primary-50/30 flex flex-col">
       <!-- Skip Links for Accessibility -->
       <div id="skip-links" class="sr-only focus:not-sr-only">
         <a
@@ -160,15 +159,15 @@ onUnmounted(() => {
       <!-- Main Content -->
       <main
         id="main-content"
-        class="pt-16 flex-1"
+        :class="['flex-1', route.name === 'home' ? 'pt-16 h-screen' : 'pt-16']"
         role="main"
         aria-label="Banner generator application"
       >
         <RouterView />
       </main>
 
-      <!-- Footer -->
-      <AppFooter />
+      <!-- Footer - Hidden on banner generator page -->
+      <AppFooter v-if="route.name !== 'home'" />
 
       <!-- Performance Monitor (Development) -->
       <PerformanceMonitor v-if="isDevelopment" />

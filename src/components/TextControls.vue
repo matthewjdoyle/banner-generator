@@ -42,7 +42,7 @@ function addText() {
   if (!newText.value.trim()) return
 
   const size = bannerStore.currentSize
-  
+
   bannerStore.addTextElement({
     text: newText.value,
     x: size.width * 0.1,
@@ -110,15 +110,6 @@ function duplicateText() {
 
 <template>
   <div class="space-y-6">
-    <!-- Header -->
-    <div class="text-center">
-      <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center mx-auto mb-3 shadow-medium">
-        <span class="text-white text-xl">📝</span>
-      </div>
-      <h3 class="text-xl font-bold text-neutral-900 font-display">Text Elements</h3>
-      <p class="text-sm text-neutral-600 mt-1">Add and customize text on your banner</p>
-    </div>
-    
     <!-- Add New Text -->
     <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-6 border border-primary-200 shadow-soft">
       <div class="bg-gradient-to-r from-primary-100 to-primary-200/80 -m-6 mb-4 p-6 rounded-t-2xl border-b border-primary-300/50">
@@ -132,7 +123,7 @@ function duplicateText() {
           </div>
         </div>
       </div>
-      
+
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-semibold text-primary-800 mb-2">Text Content</label>
@@ -242,10 +233,10 @@ function duplicateText() {
               </svg>
             </div>
           </div>
-          
+
           <!-- Active indicator background -->
-          <div 
-            v-if="selectedTextId === textElement.id" 
+          <div
+            v-if="selectedTextId === textElement.id"
             class="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-transparent opacity-50"
           ></div>
         </div>
@@ -265,7 +256,7 @@ function duplicateText() {
           </div>
         </div>
       </div>
-      
+
       <div class="space-y-6">
         <!-- Text Content -->
         <div>
@@ -353,7 +344,7 @@ function duplicateText() {
                 />
               </div>
             </div>
-            
+
             <div>
               <label class="block text-xs font-medium text-accent-700 mb-2">Direction: {{ selectedText.gradientDirection || 45 }}°</label>
               <input
@@ -559,7 +550,7 @@ function duplicateText() {
                 />
               </button>
             </div>
-            
+
             <div v-if="selectedText.shadow.enabled" class="space-y-3">
               <div>
                 <label class="block text-xs font-medium text-accent-700 mb-1">Shadow Color</label>
@@ -570,7 +561,7 @@ function duplicateText() {
                   class="w-full h-10 border-2 border-accent-200 rounded-xl cursor-pointer shadow-soft"
                 />
               </div>
-              
+
               <div class="grid grid-cols-3 gap-3">
                 <div>
                   <label class="block text-xs font-medium text-accent-700 mb-1">Blur: {{ selectedText.shadow.blur }}px</label>
@@ -631,7 +622,7 @@ function duplicateText() {
                 />
               </button>
             </div>
-            
+
             <div v-if="selectedText.stroke.enabled" class="space-y-3">
               <div>
                 <label class="block text-xs font-medium text-accent-700 mb-1">Stroke Color</label>
@@ -642,7 +633,7 @@ function duplicateText() {
                   class="w-full h-10 border-2 border-accent-200 rounded-xl cursor-pointer shadow-soft"
                 />
               </div>
-              
+
               <div>
                 <label class="block text-xs font-medium text-accent-700 mb-1">Stroke Width: {{ selectedText.stroke.width }}px</label>
                 <input
