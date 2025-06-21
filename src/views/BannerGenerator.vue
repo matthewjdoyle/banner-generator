@@ -46,67 +46,10 @@ const tabs = [
                 <div
                   class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0"
                 >
-                  <div class="flex items-center space-x-3 sm:space-x-4">
-                    <div
-                      class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-medium bg-white border border-primary-200"
-                    >
-                      <svg
-                        class="w-6 h-6 sm:w-8 sm:h-8"
-                        viewBox="0 0 100 100"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <defs>
-                          <path
-                            id="ellipsePath2"
-                            d="M10,50 A40,25 0 1,1 90,50 A40,25 0 1,1 10,50 Z"
-                          />
-                        </defs>
-                        <g transform="rotate(45 50 50)">
-                          <ellipse
-                            cx="50"
-                            cy="50"
-                            rx="40"
-                            ry="25"
-                            stroke="#9B5DE5"
-                            stroke-width="6"
-                          />
-                          <!-- Central Diamond Dots -->
-                          <circle cx="43" cy="50" r="7" fill="#9B5DE5" />
-                          <circle cx="50" cy="43" r="7" fill="#05e68c" />
-                          <circle cx="57" cy="50" r="7" fill="#9B5DE5" />
-                          <circle cx="50" cy="57" r="7" fill="#05e68c" />
-
-                          <!-- Outer Extrema Dots with Animation along path -->
-                          <circle r="5" fill="#fde725">
-                            <animateMotion
-                              dur="20.4s"
-                              repeatCount="indefinite"
-                              keyPoints="0;0;0.5;0.5;0;0"
-                              keyTimes="0;0.14706;0.15686;0.64706;0.65686;1"
-                            >
-                              <mpath href="#ellipsePath2" />
-                            </animateMotion>
-                          </circle>
-                          <circle r="5" fill="#fde725">
-                            <animateMotion
-                              dur="20.4s"
-                              repeatCount="indefinite"
-                              keyPoints="0.5;0.5;1;1;0.5;0.5"
-                              keyTimes="0;0.14706;0.15686;0.64706;0.65686;1"
-                            >
-                              <mpath href="#ellipsePath2" />
-                            </animateMotion>
-                          </circle>
-                        </g>
-                      </svg>
-                    </div>
-                    <div>
-                      <h2 class="text-lg sm:text-xl font-bold text-neutral-900 font-display">
-                        Canvas Preview
-                      </h2>
-                      <p class="text-xs sm:text-sm text-neutral-600">Design your banner below</p>
-                    </div>
+                  <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-neutral-900 font-display">
+                      Preview
+                    </h2>
                   </div>
                   <div
                     class="flex items-center space-x-3 sm:space-x-6 w-full sm:w-auto justify-between sm:justify-end"

@@ -371,47 +371,15 @@ const sampleImages = [
         </div>
       </div>
 
-      <div class="grid grid-cols-1 gap-3">
+      <div class="flex justify-center items-center space-x-4">
         <!-- Leonardo AI -->
         <a
           href="https://leonardo.ai"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center justify-center space-x-3 p-4 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50"
+          class="group flex items-center justify-center p-3 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50 hover:scale-105"
         >
-          <div class="w-8 h-8 flex items-center justify-center">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <!-- Leonardo AI inspired logo - purple gradient with "L" -->
-              <defs>
-                <linearGradient id="leonardoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color: #8b5cf6" />
-                  <stop offset="100%" style="stop-color: #ec4899" />
-                </linearGradient>
-              </defs>
-              <rect width="32" height="32" rx="8" fill="url(#leonardoGrad)" />
-              <path d="M8 24V8h4v12h8v4H8z" fill="white" />
-            </svg>
-          </div>
-          <span class="font-semibold text-purple-900 group-hover:text-purple-700">Leonardo AI</span>
-          <svg
-            class="w-4 h-4 text-purple-500 group-hover:text-purple-700 group-hover:translate-x-1 transition-all duration-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
+          <img src="/leonardo_ai-logo.png" alt="Leonardo AI" class="w-10 h-10 object-contain" />
         </a>
 
         <!-- Playground AI -->
@@ -419,44 +387,9 @@ const sampleImages = [
           href="https://playgroundai.com"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center justify-center space-x-3 p-4 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50"
+          class="group flex items-center justify-center p-3 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50 hover:scale-105"
         >
-          <div class="w-8 h-8 flex items-center justify-center">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <!-- Playground AI inspired logo - colorful gradient with play symbol -->
-              <defs>
-                <linearGradient id="playgroundGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color: #6366f1" />
-                  <stop offset="50%" style="stop-color: #8b5cf6" />
-                  <stop offset="100%" style="stop-color: #ec4899" />
-                </linearGradient>
-              </defs>
-              <rect width="32" height="32" rx="8" fill="url(#playgroundGrad)" />
-              <path d="M12 8v16l12-8-12-8z" fill="white" />
-            </svg>
-          </div>
-          <span class="font-semibold text-purple-900 group-hover:text-purple-700"
-            >Playground AI</span
-          >
-          <svg
-            class="w-4 h-4 text-purple-500 group-hover:text-purple-700 group-hover:translate-x-1 transition-all duration-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
+          <img src="/playground-logo.png" alt="Playground AI" class="w-10 h-10 object-contain" />
         </a>
 
         <!-- Bing Image Creator (OpenAI/Microsoft) -->
@@ -464,49 +397,9 @@ const sampleImages = [
           href="https://www.bing.com/images/create"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center justify-center space-x-3 p-4 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50"
+          class="group flex items-center justify-center p-3 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-medium transition-all duration-300 hover:bg-purple-50 hover:scale-105"
         >
-          <div class="w-8 h-8 flex items-center justify-center">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <!-- Microsoft/OpenAI inspired logo - blue gradient with abstract shapes -->
-              <defs>
-                <linearGradient id="bingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color: #0078d4" />
-                  <stop offset="100%" style="stop-color: #00bcf2" />
-                </linearGradient>
-              </defs>
-              <rect width="32" height="32" rx="8" fill="url(#bingGrad)" />
-              <!-- Abstract AI-inspired shapes -->
-              <circle cx="16" cy="16" r="8" fill="none" stroke="white" stroke-width="2" />
-              <circle cx="16" cy="16" r="3" fill="white" />
-              <circle cx="16" cy="8" r="2" fill="white" opacity="0.7" />
-              <circle cx="24" cy="16" r="2" fill="white" opacity="0.7" />
-              <circle cx="16" cy="24" r="2" fill="white" opacity="0.7" />
-              <circle cx="8" cy="16" r="2" fill="white" opacity="0.7" />
-            </svg>
-          </div>
-          <span class="font-semibold text-purple-900 group-hover:text-purple-700"
-            >Bing Image Creator</span
-          >
-          <svg
-            class="w-4 h-4 text-purple-500 group-hover:text-purple-700 group-hover:translate-x-1 transition-all duration-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
+          <img src="/openai-icon.png" alt="Bing Image Creator" class="w-10 h-10 object-contain" />
         </a>
       </div>
     </div>
