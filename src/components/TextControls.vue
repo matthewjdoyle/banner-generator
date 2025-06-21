@@ -275,7 +275,6 @@ function duplicateText() {
           </div>
           <div>
             <h4 class="font-bold text-accent-900">Customize Text</h4>
-            <p class="text-sm text-accent-700">Edit the selected text element</p>
           </div>
         </div>
       </div>
@@ -283,18 +282,17 @@ function duplicateText() {
       <div class="space-y-6">
         <!-- Text Content -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-2">Text Content</label>
           <input
             type="text"
             :value="selectedText.text"
             @input="updateText({ text: ($event.target as HTMLInputElement).value })"
             class="w-full px-4 py-3 border-2 border-accent-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent bg-white font-medium"
+            placeholder="Enter text content..."
           />
         </div>
 
         <!-- Color Type -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-3">Color Type</label>
           <div class="grid grid-cols-2 gap-3">
             <button
               @click="updateText({ colorType: 'solid' })"
@@ -325,7 +323,6 @@ function duplicateText() {
 
         <!-- Solid Color -->
         <div v-if="(selectedText.colorType || 'solid') === 'solid'">
-          <label class="block text-sm font-semibold text-accent-800 mb-2">Text Color</label>
           <div class="flex space-x-3">
             <input
               type="color"
@@ -345,11 +342,9 @@ function duplicateText() {
 
         <!-- Gradient Colors -->
         <div v-if="selectedText.colorType === 'gradient'">
-          <label class="block text-sm font-semibold text-accent-800 mb-3">Gradient Colors</label>
           <div class="space-y-4">
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-medium text-accent-700 mb-2">Start Color</label>
                 <input
                   type="color"
                   :value="selectedText.gradientColors?.[0] || '#3B82F6'"
@@ -365,7 +360,6 @@ function duplicateText() {
                 />
               </div>
               <div>
-                <label class="block text-xs font-medium text-accent-700 mb-2">End Color</label>
                 <input
                   type="color"
                   :value="selectedText.gradientColors?.[1] || '#1E40AF'"
@@ -383,9 +377,6 @@ function duplicateText() {
             </div>
 
             <div>
-              <label class="block text-xs font-medium text-accent-700 mb-2"
-                >Direction: {{ selectedText.gradientDirection || 45 }}°</label
-              >
               <input
                 type="range"
                 :value="selectedText.gradientDirection || 45"
@@ -398,6 +389,9 @@ function duplicateText() {
                 max="360"
                 class="w-full"
               />
+              <div class="text-center text-xs text-accent-600 mt-1">
+                {{ selectedText.gradientDirection || 45 }}°
+              </div>
             </div>
           </div>
         </div>
@@ -405,7 +399,6 @@ function duplicateText() {
         <!-- Font Properties -->
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-semibold text-accent-800 mb-2">Font Size</label>
             <select
               :value="selectedText.fontSize"
               @change="updateText({ fontSize: ($event.target as HTMLSelectElement).value as any })"
@@ -419,7 +412,6 @@ function duplicateText() {
             </select>
           </div>
           <div>
-            <label class="block text-sm font-semibold text-accent-800 mb-2">Font Weight</label>
             <select
               :value="selectedText.fontWeight"
               @change="updateText({ fontWeight: ($event.target as HTMLSelectElement).value })"
@@ -434,7 +426,6 @@ function duplicateText() {
 
         <!-- Font Family -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-2">Font Family</label>
           <select
             :value="selectedText.fontFamily"
             @change="updateText({ fontFamily: ($event.target as HTMLSelectElement).value })"
@@ -448,12 +439,8 @@ function duplicateText() {
 
         <!-- Position Controls -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-2">Position</label>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-medium text-accent-700 mb-1"
-                >X: {{ selectedText.x }}px</label
-              >
               <input
                 type="range"
                 :value="selectedText.x"
@@ -462,11 +449,9 @@ function duplicateText() {
                 :max="bannerStore.currentSize.width - 100"
                 class="w-full"
               />
+              <div class="text-center text-xs text-accent-600 mt-1">X: {{ selectedText.x }}px</div>
             </div>
             <div>
-              <label class="block text-xs font-medium text-accent-700 mb-1"
-                >Y: {{ selectedText.y }}px</label
-              >
               <input
                 type="range"
                 :value="selectedText.y"
@@ -475,6 +460,7 @@ function duplicateText() {
                 :max="bannerStore.currentSize.height - 50"
                 class="w-full"
               />
+              <div class="text-center text-xs text-accent-600 mt-1">Y: {{ selectedText.y }}px</div>
             </div>
           </div>
         </div>
@@ -482,9 +468,6 @@ function duplicateText() {
         <!-- Opacity and Rotation -->
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-medium text-accent-700 mb-1"
-              >Opacity: {{ Math.round((selectedText.opacity || 1) * 100) }}%</label
-            >
             <input
               type="range"
               :value="selectedText.opacity || 1"
@@ -496,11 +479,11 @@ function duplicateText() {
               step="0.1"
               class="w-full"
             />
+            <div class="text-center text-xs text-accent-600 mt-1">
+              Opacity: {{ Math.round((selectedText.opacity || 1) * 100) }}%
+            </div>
           </div>
           <div>
-            <label class="block text-xs font-medium text-accent-700 mb-1"
-              >Rotation: {{ selectedText.rotation || 0 }}°</label
-            >
             <input
               type="range"
               :value="selectedText.rotation || 0"
@@ -509,12 +492,14 @@ function duplicateText() {
               max="180"
               class="w-full"
             />
+            <div class="text-center text-xs text-accent-600 mt-1">
+              Rotation: {{ selectedText.rotation || 0 }}°
+            </div>
           </div>
         </div>
 
         <!-- Text Alignment -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-3">Text Alignment</label>
           <div class="grid grid-cols-3 gap-3">
             <button
               @click="updateText({ textAlign: 'left' })"
@@ -558,9 +543,6 @@ function duplicateText() {
         <!-- Letter Spacing and Line Height -->
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-medium text-accent-700 mb-1"
-              >Letter Spacing: {{ selectedText.letterSpacing || 0 }}px</label
-            >
             <input
               type="range"
               :value="selectedText.letterSpacing || 0"
@@ -571,11 +553,11 @@ function duplicateText() {
               max="20"
               class="w-full"
             />
+            <div class="text-center text-xs text-accent-600 mt-1">
+              Letter Spacing: {{ selectedText.letterSpacing || 0 }}px
+            </div>
           </div>
           <div>
-            <label class="block text-xs font-medium text-accent-700 mb-1"
-              >Line Height: {{ (selectedText.lineHeight || 1.2).toFixed(1) }}</label
-            >
             <input
               type="range"
               :value="selectedText.lineHeight || 1.2"
@@ -587,15 +569,17 @@ function duplicateText() {
               step="0.1"
               class="w-full"
             />
+            <div class="text-center text-xs text-accent-600 mt-1">
+              Line Height: {{ (selectedText.lineHeight || 1.2).toFixed(1) }}
+            </div>
           </div>
         </div>
 
         <!-- Shadow Effects -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-3">Shadow Effects</label>
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="text-sm font-medium text-accent-700">Enable Shadow</span>
+              <span class="text-sm font-medium text-accent-700">Shadow</span>
               <button
                 @click="
                   updateText({
@@ -618,7 +602,6 @@ function duplicateText() {
 
             <div v-if="selectedText.shadow.enabled" class="space-y-3">
               <div>
-                <label class="block text-xs font-medium text-accent-700 mb-1">Shadow Color</label>
                 <input
                   type="color"
                   :value="selectedText.shadow.color"
@@ -636,9 +619,6 @@ function duplicateText() {
 
               <div class="grid grid-cols-3 gap-3">
                 <div>
-                  <label class="block text-xs font-medium text-accent-700 mb-1"
-                    >Blur: {{ selectedText.shadow.blur }}px</label
-                  >
                   <input
                     type="range"
                     :value="selectedText.shadow.blur"
@@ -654,11 +634,11 @@ function duplicateText() {
                     max="20"
                     class="w-full"
                   />
+                  <div class="text-center text-xs text-accent-600 mt-1">
+                    Blur: {{ selectedText.shadow.blur }}px
+                  </div>
                 </div>
                 <div>
-                  <label class="block text-xs font-medium text-accent-700 mb-1"
-                    >X: {{ selectedText.shadow.offsetX }}px</label
-                  >
                   <input
                     type="range"
                     :value="selectedText.shadow.offsetX"
@@ -674,11 +654,11 @@ function duplicateText() {
                     max="20"
                     class="w-full"
                   />
+                  <div class="text-center text-xs text-accent-600 mt-1">
+                    X: {{ selectedText.shadow.offsetX }}px
+                  </div>
                 </div>
                 <div>
-                  <label class="block text-xs font-medium text-accent-700 mb-1"
-                    >Y: {{ selectedText.shadow.offsetY }}px</label
-                  >
                   <input
                     type="range"
                     :value="selectedText.shadow.offsetY"
@@ -694,6 +674,9 @@ function duplicateText() {
                     max="20"
                     class="w-full"
                   />
+                  <div class="text-center text-xs text-accent-600 mt-1">
+                    Y: {{ selectedText.shadow.offsetY }}px
+                  </div>
                 </div>
               </div>
             </div>
@@ -702,10 +685,9 @@ function duplicateText() {
 
         <!-- Stroke/Outline Effects -->
         <div>
-          <label class="block text-sm font-semibold text-accent-800 mb-3">Stroke/Outline</label>
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="text-sm font-medium text-accent-700">Enable Stroke</span>
+              <span class="text-sm font-medium text-accent-700">Stroke</span>
               <button
                 @click="
                   updateText({
@@ -728,7 +710,6 @@ function duplicateText() {
 
             <div v-if="selectedText.stroke.enabled" class="space-y-3">
               <div>
-                <label class="block text-xs font-medium text-accent-700 mb-1">Stroke Color</label>
                 <input
                   type="color"
                   :value="selectedText.stroke.color"
@@ -745,9 +726,6 @@ function duplicateText() {
               </div>
 
               <div>
-                <label class="block text-xs font-medium text-accent-700 mb-1"
-                  >Stroke Width: {{ selectedText.stroke.width }}px</label
-                >
                 <input
                   type="range"
                   :value="selectedText.stroke.width"
@@ -763,6 +741,9 @@ function duplicateText() {
                   max="10"
                   class="w-full"
                 />
+                <div class="text-center text-xs text-accent-600 mt-1">
+                  Width: {{ selectedText.stroke.width }}px
+                </div>
               </div>
             </div>
           </div>

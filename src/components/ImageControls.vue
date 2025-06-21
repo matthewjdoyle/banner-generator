@@ -204,7 +204,6 @@ const sampleImages = [
 
     <!-- Existing Images -->
     <div v-if="bannerStore.images.length > 0">
-      <label class="block text-sm font-semibold text-neutral-700 mb-3">Images on Banner</label>
       <div class="space-y-4">
         <div
           v-for="image in bannerStore.images"
@@ -228,9 +227,8 @@ const sampleImages = [
               </div>
             </div>
             <div class="flex-1">
-              <p class="font-medium text-neutral-900">Image Element</p>
-              <p class="text-sm text-neutral-600">{{ image.width }} × {{ image.height }}px</p>
-              <div class="flex items-center space-x-4 mt-2 text-xs text-neutral-500">
+              <p class="font-medium text-neutral-900">{{ image.width }} × {{ image.height }}px</p>
+              <div class="flex items-center space-x-4 mt-1 text-xs text-neutral-500">
                 <span>X: {{ image.x }}px</span>
                 <span>Y: {{ image.y }}px</span>
                 <span v-if="image.borderRadius > 0">Radius: {{ image.borderRadius }}%</span>
@@ -242,7 +240,6 @@ const sampleImages = [
           <div class="space-y-4">
             <!-- Position Controls -->
             <div>
-              <label class="block text-xs font-semibold text-neutral-700 mb-2">Position</label>
               <div class="flex items-center justify-center space-x-2">
                 <button
                   @click="updateImagePosition(image.id, 'up')"
@@ -280,9 +277,6 @@ const sampleImages = [
             <!-- Size Controls -->
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-neutral-700 mb-1"
-                  >Width: {{ image.width }}px</label
-                >
                 <input
                   type="range"
                   :value="image.width"
@@ -297,11 +291,11 @@ const sampleImages = [
                   max="2000"
                   class="w-full"
                 />
+                <div class="text-center text-xs text-neutral-600 mt-1">
+                  Width: {{ image.width }}px
+                </div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-neutral-700 mb-1"
-                  >Height: {{ image.height }}px</label
-                >
                 <input
                   type="range"
                   :value="image.height"
@@ -316,14 +310,14 @@ const sampleImages = [
                   max="2000"
                   class="w-full"
                 />
+                <div class="text-center text-xs text-neutral-600 mt-1">
+                  Height: {{ image.height }}px
+                </div>
               </div>
             </div>
 
             <!-- Border Radius -->
             <div>
-              <label class="block text-xs font-semibold text-neutral-700 mb-1"
-                >Corner Radius: {{ image.borderRadius }}%</label
-              >
               <input
                 type="range"
                 :value="image.borderRadius"
@@ -337,6 +331,9 @@ const sampleImages = [
                 max="50"
                 class="w-full"
               />
+              <div class="text-center text-xs text-neutral-600 mt-1">
+                Corner Radius: {{ image.borderRadius }}%
+              </div>
             </div>
           </div>
         </div>
