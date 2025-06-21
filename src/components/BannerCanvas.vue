@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, nextTick } from 'vue'
 import { useBannerStore } from '@/stores/banner'
-import { useUndoRedoStore, UpdateTextCommand, UpdateIconCommand, UpdateImageCommand } from '@/stores/undoRedo'
+import {
+  useUndoRedoStore,
+  UpdateTextCommand,
+  UpdateIconCommand,
+  UpdateImageCommand,
+} from '@/stores/undoRedo'
 
 const bannerStore = useBannerStore()
 const undoRedoStore = useUndoRedoStore()
@@ -10,7 +15,7 @@ const containerRef = ref<HTMLDivElement>()
 
 // Drag and drop state
 const isDragging = ref(false)
-const dragTarget = ref<{ type: 'text' | 'icon' | 'image', id: string } | null>(null)
+const dragTarget = ref<{ type: 'text' | 'icon' | 'image'; id: string } | null>(null)
 const dragOffset = ref({ x: 0, y: 0 })
 const canvasScale = ref(1)
 const dragStartPosition = ref({ x: 0, y: 0 })
@@ -25,31 +30,31 @@ const fontSizeMap = {
   xxlarge: 96,
   huge: 120,
   massive: 150,
-  giant: 192
+  giant: 192,
 }
 
 // SVG Shape definitions
 function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number) {
   const halfSize = size / 2
-  
+
   ctx.beginPath()
-  
+
   switch (shape) {
     case 'circle':
       ctx.arc(0, 0, halfSize, 0, 2 * Math.PI)
       break
-      
+
     case 'square':
       ctx.rect(-halfSize, -halfSize, size, size)
       break
-      
+
     case 'triangle':
       ctx.moveTo(0, -halfSize)
       ctx.lineTo(-halfSize, halfSize)
       ctx.lineTo(halfSize, halfSize)
       ctx.closePath()
       break
-      
+
     case 'diamond':
       ctx.moveTo(0, -halfSize)
       ctx.lineTo(halfSize, 0)
@@ -57,7 +62,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.lineTo(-halfSize, 0)
       ctx.closePath()
       break
-      
+
     case 'hexagon':
       const hexRadius = halfSize
       for (let i = 0; i < 6; i++) {
@@ -69,7 +74,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       }
       ctx.closePath()
       break
-      
+
     case 'pentagon':
       const pentRadius = halfSize
       for (let i = 0; i < 5; i++) {
@@ -81,7 +86,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       }
       ctx.closePath()
       break
-      
+
     case 'star':
       const starRadius = halfSize
       const innerRadius = starRadius * 0.4
@@ -95,14 +100,28 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       }
       ctx.closePath()
       break
-      
+
     case 'heart':
       const heartSize = halfSize * 0.8
       ctx.moveTo(0, heartSize * 0.3)
-      ctx.bezierCurveTo(-heartSize, -heartSize * 0.5, -heartSize * 0.5, -heartSize, 0, -heartSize * 0.3)
-      ctx.bezierCurveTo(heartSize * 0.5, -heartSize, heartSize, -heartSize * 0.5, 0, heartSize * 0.3)
+      ctx.bezierCurveTo(
+        -heartSize,
+        -heartSize * 0.5,
+        -heartSize * 0.5,
+        -heartSize,
+        0,
+        -heartSize * 0.3,
+      )
+      ctx.bezierCurveTo(
+        heartSize * 0.5,
+        -heartSize,
+        heartSize,
+        -heartSize * 0.5,
+        0,
+        heartSize * 0.3,
+      )
       break
-      
+
     case 'arrow-right':
       const arrowSize = halfSize * 0.8
       ctx.moveTo(-arrowSize, -arrowSize * 0.5)
@@ -114,7 +133,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.lineTo(-arrowSize, arrowSize * 0.5)
       ctx.closePath()
       break
-      
+
     case 'arrow-left':
       const leftArrowSize = halfSize * 0.8
       ctx.moveTo(leftArrowSize, -leftArrowSize * 0.5)
@@ -126,7 +145,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.lineTo(leftArrowSize, leftArrowSize * 0.5)
       ctx.closePath()
       break
-      
+
     case 'arrow-up':
       const upArrowSize = halfSize * 0.8
       ctx.moveTo(-upArrowSize * 0.5, upArrowSize)
@@ -138,7 +157,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.lineTo(upArrowSize * 0.5, upArrowSize)
       ctx.closePath()
       break
-      
+
     case 'arrow-down':
       const downArrowSize = halfSize * 0.8
       ctx.moveTo(-downArrowSize * 0.5, -downArrowSize)
@@ -150,14 +169,14 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.lineTo(downArrowSize * 0.5, -downArrowSize)
       ctx.closePath()
       break
-      
+
     case 'plus':
       const plusSize = halfSize * 0.8
       const plusWidth = plusSize * 0.3
       ctx.rect(-plusWidth, -plusSize, plusWidth * 2, plusSize * 2)
       ctx.rect(-plusSize, -plusWidth, plusSize * 2, plusWidth * 2)
       break
-      
+
     case 'cross':
       const crossSize = halfSize * 0.8
       const crossWidth = crossSize * 0.2
@@ -167,7 +186,7 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.rect(-crossSize, -crossWidth, crossSize * 2, crossWidth * 2)
       ctx.restore()
       break
-      
+
     case 'check':
       const checkSize = halfSize * 0.8
       ctx.moveTo(-checkSize * 0.5, 0)
@@ -178,12 +197,18 @@ function drawSVGShape(ctx: CanvasRenderingContext2D, shape: string, size: number
       ctx.lineJoin = 'round'
       break
   }
-  
+
   return shape === 'check' // Return true if it's a stroke-only shape
 }
 
 // Fancy pattern generator
-function drawFancyPattern(ctx: CanvasRenderingContext2D, pattern: string, colors: string[], width: number, height: number) {
+function drawFancyPattern(
+  ctx: CanvasRenderingContext2D,
+  pattern: string,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   switch (pattern) {
     case 'dots':
       drawDotsPattern(ctx, colors, width, height)
@@ -224,14 +249,19 @@ function drawFancyPattern(ctx: CanvasRenderingContext2D, pattern: string, colors
   }
 }
 
-function drawDotsPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawDotsPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const spacing = 40
   const radius = 8
-  
+
   // Background
   ctx.fillStyle = colors[1] || '#FFFFFF'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Dots
   ctx.fillStyle = colors[0] || '#3B82F6'
   for (let x = spacing / 2; x < width; x += spacing) {
@@ -243,18 +273,23 @@ function drawDotsPattern(ctx: CanvasRenderingContext2D, colors: string[], width:
   }
 }
 
-function drawGridPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawGridPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const spacing = 30
   const lineWidth = 2
-  
+
   // Background
   ctx.fillStyle = colors[0] || '#F3F4F6'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Grid lines
   ctx.strokeStyle = colors[1] || '#6B7280'
   ctx.lineWidth = lineWidth
-  
+
   // Vertical lines
   for (let x = 0; x <= width; x += spacing) {
     ctx.beginPath()
@@ -262,7 +297,7 @@ function drawGridPattern(ctx: CanvasRenderingContext2D, colors: string[], width:
     ctx.lineTo(x, height)
     ctx.stroke()
   }
-  
+
   // Horizontal lines
   for (let y = 0; y <= height; y += spacing) {
     ctx.beginPath()
@@ -272,9 +307,14 @@ function drawGridPattern(ctx: CanvasRenderingContext2D, colors: string[], width:
   }
 }
 
-function drawDiagonalPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawDiagonalPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const stripeWidth = 20
-  
+
   // Create pattern
   for (let x = -height; x < width + height; x += stripeWidth * 2) {
     ctx.fillStyle = colors[0] || '#8B5CF6'
@@ -285,7 +325,7 @@ function drawDiagonalPattern(ctx: CanvasRenderingContext2D, colors: string[], wi
     ctx.lineTo(x + height, height)
     ctx.closePath()
     ctx.fill()
-    
+
     ctx.fillStyle = colors[1] || '#A78BFA'
     ctx.beginPath()
     ctx.moveTo(x + stripeWidth, 0)
@@ -297,31 +337,40 @@ function drawDiagonalPattern(ctx: CanvasRenderingContext2D, colors: string[], wi
   }
 }
 
-function drawHexagonPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawHexagonPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const hexRadius = 30
   const hexWidth = hexRadius * 2
   const hexHeight = hexRadius * Math.sqrt(3)
-  
+
   // Background
   ctx.fillStyle = colors[1] || '#34D399'
   ctx.fillRect(0, 0, width, height)
-  
+
   ctx.fillStyle = colors[0] || '#10B981'
-  
+
   // Calculate proper hexagon grid
   const cols = Math.ceil(width / (hexWidth * 0.75)) + 1
   const rows = Math.ceil(height / hexHeight) + 1
-  
+
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
       // Offset every other row for proper hexagon tessellation
       const xOffset = (row % 2) * (hexWidth * 0.375)
       const x = col * (hexWidth * 0.75) + xOffset
       const y = row * hexHeight
-      
+
       // Only draw hexagons that are visible
-      if (x + hexRadius >= 0 && x - hexRadius <= width && 
-          y + hexRadius >= 0 && y - hexRadius <= height) {
+      if (
+        x + hexRadius >= 0 &&
+        x - hexRadius <= width &&
+        y + hexRadius >= 0 &&
+        y - hexRadius <= height
+      ) {
         drawHexagon(ctx, x, y, hexRadius)
       }
     }
@@ -341,26 +390,31 @@ function drawHexagon(ctx: CanvasRenderingContext2D, x: number, y: number, radius
   ctx.fill()
 }
 
-function drawWavesPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawWavesPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const waveHeight = 40
   const frequency = 0.01
-  
+
   // Background
   ctx.fillStyle = colors[1] || '#38BDF8'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Waves
   ctx.fillStyle = colors[0] || '#0EA5E9'
-  
+
   for (let y = 0; y < height; y += waveHeight) {
     ctx.beginPath()
     ctx.moveTo(0, y)
-    
+
     for (let x = 0; x <= width; x++) {
       const waveY = y + Math.sin(x * frequency) * (waveHeight / 2)
       ctx.lineTo(x, waveY)
     }
-    
+
     ctx.lineTo(width, y + waveHeight)
     ctx.lineTo(0, y + waveHeight)
     ctx.closePath()
@@ -368,22 +422,27 @@ function drawWavesPattern(ctx: CanvasRenderingContext2D, colors: string[], width
   }
 }
 
-function drawTrianglesPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawTrianglesPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const size = 40
   const colorCount = colors.length
-  
+
   // Create seeded random for consistency
   let seed = 54321
   function seededRandom() {
     seed = (seed * 9301 + 49297) % 233280
     return seed / 233280
   }
-  
+
   for (let y = 0; y < height; y += size) {
     for (let x = 0; x < width; x += size) {
       const colorIndex = Math.floor(seededRandom() * colorCount)
       ctx.fillStyle = colors[colorIndex] || '#F59E0B'
-      
+
       // Random triangle orientation
       const orientation = Math.floor(seededRandom() * 4)
       drawTriangle(ctx, x, y, size, orientation)
@@ -391,9 +450,15 @@ function drawTrianglesPattern(ctx: CanvasRenderingContext2D, colors: string[], w
   }
 }
 
-function drawTriangle(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, orientation: number) {
+function drawTriangle(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  size: number,
+  orientation: number,
+) {
   ctx.beginPath()
-  
+
   switch (orientation) {
     case 0: // Up
       ctx.moveTo(x + size / 2, y)
@@ -416,43 +481,53 @@ function drawTriangle(ctx: CanvasRenderingContext2D, x: number, y: number, size:
       ctx.lineTo(x + size, y + size)
       break
   }
-  
+
   ctx.closePath()
   ctx.fill()
 }
 
-function drawCirclesPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawCirclesPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const spacing = 60
   const radius = 20
-  
+
   // Background
   ctx.fillStyle = colors[1] || '#F472B6'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Overlapping circles
   ctx.globalAlpha = 0.7
   ctx.fillStyle = colors[0] || '#EC4899'
-  
+
   for (let x = 0; x < width; x += spacing) {
     for (let y = 0; y < height; y += spacing) {
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, 2 * Math.PI)
       ctx.fill()
-      
+
       // Offset circles
       ctx.beginPath()
       ctx.arc(x + spacing / 2, y + spacing / 2, radius, 0, 2 * Math.PI)
       ctx.fill()
     }
   }
-  
+
   ctx.globalAlpha = 1
 }
 
-function drawChevronPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawChevronPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const chevronHeight = 40
   const chevronWidth = 20
-  
+
   for (let y = 0; y < height; y += chevronHeight) {
     for (let x = 0; x < width; x += chevronWidth * 2) {
       // First chevron
@@ -466,7 +541,7 @@ function drawChevronPattern(ctx: CanvasRenderingContext2D, colors: string[], wid
       ctx.lineTo(x + chevronWidth, y)
       ctx.closePath()
       ctx.fill()
-      
+
       // Second chevron
       ctx.fillStyle = colors[1] || '#A855F7'
       ctx.beginPath()
@@ -482,43 +557,53 @@ function drawChevronPattern(ctx: CanvasRenderingContext2D, colors: string[], wid
   }
 }
 
-function drawStarsPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawStarsPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   // Background
   ctx.fillStyle = colors[0] || '#1E1B4B'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Create seeded random for consistency
   let seed = 98765
   function seededRandom() {
     seed = (seed * 9301 + 49297) % 233280
     return seed / 233280
   }
-  
+
   // Random stars
   ctx.fillStyle = colors[1] || '#FBBF24'
-  
+
   for (let i = 0; i < 100; i++) {
     const x = seededRandom() * width
     const y = seededRandom() * height
     const size = seededRandom() * 3 + 1
-    
+
     ctx.beginPath()
     ctx.arc(x, y, size, 0, 2 * Math.PI)
     ctx.fill()
   }
 }
 
-function drawNoisePattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawNoisePattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const pixelSize = 4
   const colorCount = colors.length
-  
+
   // Create seeded random for consistency
   let seed = 13579
   function seededRandom() {
     seed = (seed * 9301 + 49297) % 233280
     return seed / 233280
   }
-  
+
   for (let x = 0; x < width; x += pixelSize) {
     for (let y = 0; y < height; y += pixelSize) {
       const colorIndex = Math.floor(seededRandom() * colorCount)
@@ -528,48 +613,58 @@ function drawNoisePattern(ctx: CanvasRenderingContext2D, colors: string[], width
   }
 }
 
-function drawBubblesPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawBubblesPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   // Background
   ctx.fillStyle = colors[0] || '#06B6D4'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Create seeded random for consistency
   let seed = 24680
   function seededRandom() {
     seed = (seed * 9301 + 49297) % 233280
     return seed / 233280
   }
-  
+
   // Bubbles
   for (let i = 0; i < 50; i++) {
     const x = seededRandom() * width
     const y = seededRandom() * height
     const radius = seededRandom() * 30 + 10
     const colorIndex = Math.floor(seededRandom() * (colors.length - 1)) + 1
-    
+
     ctx.fillStyle = colors[colorIndex] || '#67E8F9'
     ctx.globalAlpha = 0.6
-    
+
     ctx.beginPath()
     ctx.arc(x, y, radius, 0, 2 * Math.PI)
     ctx.fill()
   }
-  
+
   ctx.globalAlpha = 1
 }
 
-function drawCircuitPattern(ctx: CanvasRenderingContext2D, colors: string[], width: number, height: number) {
+function drawCircuitPattern(
+  ctx: CanvasRenderingContext2D,
+  colors: string[],
+  width: number,
+  height: number,
+) {
   const spacing = 50
   const lineWidth = 3
-  
+
   // Background
   ctx.fillStyle = colors[0] || '#065F46'
   ctx.fillRect(0, 0, width, height)
-  
+
   // Circuit lines
   ctx.strokeStyle = colors[1] || '#10B981'
   ctx.lineWidth = lineWidth
-  
+
   // Horizontal lines
   for (let y = spacing; y < height; y += spacing) {
     ctx.beginPath()
@@ -577,7 +672,7 @@ function drawCircuitPattern(ctx: CanvasRenderingContext2D, colors: string[], wid
     ctx.lineTo(width, y)
     ctx.stroke()
   }
-  
+
   // Vertical lines
   for (let x = spacing; x < width; x += spacing) {
     ctx.beginPath()
@@ -585,7 +680,7 @@ function drawCircuitPattern(ctx: CanvasRenderingContext2D, colors: string[], wid
     ctx.lineTo(x, height)
     ctx.stroke()
   }
-  
+
   // Circuit nodes
   ctx.fillStyle = colors[1] || '#10B981'
   for (let x = spacing; x < width; x += spacing) {
@@ -598,19 +693,19 @@ function drawCircuitPattern(ctx: CanvasRenderingContext2D, colors: string[], wid
 }
 
 function drawImageBackground(
-  ctx: CanvasRenderingContext2D, 
-  img: HTMLImageElement, 
-  canvasWidth: number, 
-  canvasHeight: number, 
-  background: any
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  canvasWidth: number,
+  canvasHeight: number,
+  background: any,
 ) {
   // Scale image to banner width while preserving aspect ratio
   const drawWidth = canvasWidth
   const drawHeight = (img.height / img.width) * canvasWidth
-  
+
   // Get vertical position (0-100 percentage, default to center)
   const cropY = (background.cropY ?? 50) / 100
-  
+
   // Calculate vertical position based on how much extra height we have
   let drawY = 0
   if (drawHeight > canvasHeight) {
@@ -621,10 +716,10 @@ function drawImageBackground(
     // Image is shorter than canvas - center it vertically
     drawY = (canvasHeight - drawHeight) / 2
   }
-  
+
   // Always center horizontally
   const drawX = 0
-  
+
   // Clear and draw the image
   ctx.clearRect(0, 0, canvasWidth, canvasHeight)
   ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight)
@@ -639,7 +734,7 @@ function drawBanner() {
 
   const size = bannerStore.currentSize
   const background = bannerStore.currentBackground
-  
+
   // Set canvas actual size
   canvas.width = size.width
   canvas.height = size.height
@@ -673,7 +768,13 @@ function drawBanner() {
   } else if (background.type === 'fancy') {
     // Handle fancy patterns
     if (background.patternType && background.patternColors) {
-      drawFancyPattern(ctx, background.patternType, background.patternColors, size.width, size.height)
+      drawFancyPattern(
+        ctx,
+        background.patternType,
+        background.patternColors,
+        size.width,
+        size.height,
+      )
     }
   }
 
@@ -704,19 +805,19 @@ function drawElements(ctx: CanvasRenderingContext2D) {
 
   // Draw icons
   bannerStore.icons.forEach((icon) => {
-    const iconData = bannerStore.availableIcons.find(i => i.id === icon.type)
+    const iconData = bannerStore.availableIcons.find((i) => i.id === icon.type)
     if (!iconData) return
 
     ctx.save()
-    
+
     // Set opacity
     ctx.globalAlpha = icon.opacity
-    
+
     // Apply transformations
     ctx.translate(icon.x + icon.size / 2, icon.y + icon.size / 2)
     ctx.rotate((icon.rotation * Math.PI) / 180)
     ctx.scale(icon.flipX ? -1 : 1, icon.flipY ? -1 : 1)
-    
+
     // Apply shadow if enabled
     if (icon.shadow.enabled) {
       ctx.shadowColor = icon.shadow.color
@@ -724,12 +825,36 @@ function drawElements(ctx: CanvasRenderingContext2D) {
       ctx.shadowOffsetX = icon.shadow.offsetX
       ctx.shadowOffsetY = icon.shadow.offsetY
     }
-    
+
     // Check if it's an SVG shape or emoji
-    if (iconData.svg.startsWith('svg-') || ['circle', 'square', 'triangle', 'diamond', 'hexagon', 'pentagon', 'star', 'heart', 'arrow-right', 'arrow-left', 'arrow-up', 'arrow-down', 'plus', 'cross', 'check'].includes(iconData.svg)) {
+    if (
+      iconData.svg.startsWith('svg-') ||
+      [
+        'circle',
+        'square',
+        'triangle',
+        'diamond',
+        'hexagon',
+        'pentagon',
+        'star',
+        'heart',
+        'arrow-right',
+        'arrow-left',
+        'arrow-up',
+        'arrow-down',
+        'plus',
+        'cross',
+        'check',
+      ].includes(iconData.svg)
+    ) {
       // Apply color/gradient for SVG shapes
       if (icon.colorType === 'gradient' && icon.gradientColors) {
-        const gradient = ctx.createLinearGradient(-icon.size/2, -icon.size/2, icon.size/2, icon.size/2)
+        const gradient = ctx.createLinearGradient(
+          -icon.size / 2,
+          -icon.size / 2,
+          icon.size / 2,
+          icon.size / 2,
+        )
         icon.gradientColors.forEach((color, index) => {
           gradient.addColorStop(index / (icon.gradientColors!.length - 1), color)
         })
@@ -739,7 +864,7 @@ function drawElements(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = icon.color
         ctx.strokeStyle = icon.color
       }
-      
+
       // Draw SVG shape
       const isStrokeOnly = drawSVGShape(ctx, iconData.svg, icon.size)
       if (isStrokeOnly) {
@@ -752,40 +877,40 @@ function drawElements(ctx: CanvasRenderingContext2D) {
       ctx.font = `${icon.size}px Arial`
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      
+
       // Normal emoji rendering - use black as default for visibility
       ctx.fillStyle = 'black'
       ctx.fillText(iconData.svg, 0, 0)
     }
-    
+
     ctx.restore()
   })
 
   // Draw text elements with enhanced properties
   bannerStore.textElements.forEach((textElement) => {
     ctx.save()
-    
+
     // Set opacity
     ctx.globalAlpha = textElement.opacity || 1
-    
+
     // Apply rotation
     if (textElement.rotation) {
       ctx.translate(textElement.x, textElement.y)
       ctx.rotate((textElement.rotation * Math.PI) / 180)
       ctx.translate(-textElement.x, -textElement.y)
     }
-    
+
     // Set font properties
     const fontSize = fontSizeMap[textElement.fontSize] || 36
     ctx.font = `${textElement.fontWeight} ${fontSize}px ${textElement.fontFamily}`
     ctx.textAlign = textElement.textAlign || 'left'
     ctx.textBaseline = 'top'
-    
+
     // Apply letter spacing (approximate)
     if (textElement.letterSpacing) {
       ctx.letterSpacing = `${textElement.letterSpacing}px`
     }
-    
+
     // Apply shadow if enabled
     if (textElement.shadow?.enabled) {
       ctx.shadowColor = textElement.shadow.color
@@ -793,17 +918,23 @@ function drawElements(ctx: CanvasRenderingContext2D) {
       ctx.shadowOffsetX = textElement.shadow.offsetX
       ctx.shadowOffsetY = textElement.shadow.offsetY
     }
-    
+
     // Apply stroke if enabled
     if (textElement.stroke?.enabled) {
       // Set stroke color (solid or gradient)
-      if (textElement.colorType === 'gradient' && textElement.gradientColors && textElement.gradientColors.length >= 2) {
+      if (
+        textElement.colorType === 'gradient' &&
+        textElement.gradientColors &&
+        textElement.gradientColors.length >= 2
+      ) {
         const textWidth = ctx.measureText(textElement.text).width
         const gradient = ctx.createLinearGradient(
-          textElement.x, 
-          textElement.y, 
-          textElement.x + textWidth * Math.cos((textElement.gradientDirection || 0) * Math.PI / 180),
-          textElement.y + fontSize * Math.sin((textElement.gradientDirection || 0) * Math.PI / 180)
+          textElement.x,
+          textElement.y,
+          textElement.x +
+            textWidth * Math.cos(((textElement.gradientDirection || 0) * Math.PI) / 180),
+          textElement.y +
+            fontSize * Math.sin(((textElement.gradientDirection || 0) * Math.PI) / 180),
         )
         textElement.gradientColors.forEach((color, index) => {
           gradient.addColorStop(index / (textElement.gradientColors!.length - 1), color)
@@ -812,19 +943,24 @@ function drawElements(ctx: CanvasRenderingContext2D) {
       } else {
         ctx.strokeStyle = textElement.stroke.color
       }
-      
+
       ctx.lineWidth = textElement.stroke.width
       ctx.strokeText(textElement.text, textElement.x, textElement.y)
     }
-    
+
     // Fill text with color or gradient
-    if (textElement.colorType === 'gradient' && textElement.gradientColors && textElement.gradientColors.length >= 2) {
+    if (
+      textElement.colorType === 'gradient' &&
+      textElement.gradientColors &&
+      textElement.gradientColors.length >= 2
+    ) {
       const textWidth = ctx.measureText(textElement.text).width
       const gradient = ctx.createLinearGradient(
-        textElement.x, 
-        textElement.y, 
-        textElement.x + textWidth * Math.cos((textElement.gradientDirection || 0) * Math.PI / 180),
-        textElement.y + fontSize * Math.sin((textElement.gradientDirection || 0) * Math.PI / 180)
+        textElement.x,
+        textElement.y,
+        textElement.x +
+          textWidth * Math.cos(((textElement.gradientDirection || 0) * Math.PI) / 180),
+        textElement.y + fontSize * Math.sin(((textElement.gradientDirection || 0) * Math.PI) / 180),
       )
       textElement.gradientColors.forEach((color, index) => {
         gradient.addColorStop(index / (textElement.gradientColors!.length - 1), color)
@@ -833,9 +969,9 @@ function drawElements(ctx: CanvasRenderingContext2D) {
     } else {
       ctx.fillStyle = textElement.color
     }
-    
+
     ctx.fillText(textElement.text, textElement.x, textElement.y)
-    
+
     ctx.restore()
   })
 }
@@ -845,27 +981,27 @@ function updateCanvasSize() {
 
   const canvas = canvasRef.value
   const container = containerRef.value
-  
+
   // Get container dimensions
   const containerWidth = container.clientWidth
   const containerHeight = container.clientHeight
-  
+
   // Get banner dimensions
   const bannerWidth = bannerStore.currentSize.width
   const bannerHeight = bannerStore.currentSize.height
-  
+
   // Calculate scale to fit container while maintaining aspect ratio
   const scaleX = (containerWidth - 40) / bannerWidth // 40px for padding
   const scaleY = (containerHeight - 40) / bannerHeight // 40px for padding
   const scale = Math.min(scaleX, scaleY, 3) // Max 3x scale
-  
+
   // Store scale for coordinate conversion
   canvasScale.value = scale
-  
+
   // Apply scale via CSS
   const scaledWidth = bannerWidth * scale
   const scaledHeight = bannerHeight * scale
-  
+
   canvas.style.width = `${scaledWidth}px`
   canvas.style.height = `${scaledHeight}px`
   canvas.style.maxWidth = '100%'
@@ -873,165 +1009,221 @@ function updateCanvasSize() {
 }
 
 // Mouse event handlers for drag and drop
-function getCanvasCoordinates(event: MouseEvent): { x: number, y: number } {
+function getCanvasCoordinates(event: MouseEvent | TouchEvent): { x: number; y: number } {
   if (!canvasRef.value) return { x: 0, y: 0 }
-  
+
   const canvas = canvasRef.value
   const rect = canvas.getBoundingClientRect()
-  
+
+  // Handle both mouse and touch events
+  let clientX: number, clientY: number
+
+  if ('touches' in event && event.touches.length > 0) {
+    // Touch event
+    clientX = event.touches[0].clientX
+    clientY = event.touches[0].clientY
+  } else if ('changedTouches' in event && event.changedTouches.length > 0) {
+    // Touch end event
+    clientX = event.changedTouches[0].clientX
+    clientY = event.changedTouches[0].clientY
+  } else {
+    // Mouse event
+    clientX = (event as MouseEvent).clientX
+    clientY = (event as MouseEvent).clientY
+  }
+
   // Convert screen coordinates to canvas coordinates
-  const x = (event.clientX - rect.left) / canvasScale.value
-  const y = (event.clientY - rect.top) / canvasScale.value
-  
+  const x = (clientX - rect.left) / canvasScale.value
+  const y = (clientY - rect.top) / canvasScale.value
+
   return { x, y }
 }
 
-function measureTextWidth(text: string, fontSize: number, fontFamily: string, fontWeight: string): number {
+function measureTextWidth(
+  text: string,
+  fontSize: number,
+  fontFamily: string,
+  fontWeight: string,
+): number {
   if (!canvasRef.value) return 200 // fallback
-  
+
   const ctx = canvasRef.value.getContext('2d')
   if (!ctx) return 200
-  
+
   ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`
   return ctx.measureText(text).width
 }
 
-function findElementAtPosition(x: number, y: number): { type: 'text' | 'icon' | 'image', id: string } | null {
+function findElementAtPosition(
+  x: number,
+  y: number,
+): { type: 'text' | 'icon' | 'image'; id: string } | null {
   // Check text elements (in reverse order to match rendering order)
   for (let i = bannerStore.textElements.length - 1; i >= 0; i--) {
     const element = bannerStore.textElements[i]
     const fontSize = fontSizeMap[element.fontSize] || 36
-    const textWidth = measureTextWidth(element.text, fontSize, element.fontFamily, element.fontWeight)
-    
+    const textWidth = measureTextWidth(
+      element.text,
+      fontSize,
+      element.fontFamily,
+      element.fontWeight,
+    )
+
+    // Larger touch target for mobile (add 10px padding on all sides)
+    const padding = window.innerWidth <= 1024 ? 10 : 0
+
     // Bounding box check for text
-    if (x >= element.x && x <= element.x + textWidth &&
-        y >= element.y && y <= element.y + fontSize) {
+    if (
+      x >= element.x - padding &&
+      x <= element.x + textWidth + padding &&
+      y >= element.y - padding &&
+      y <= element.y + fontSize + padding
+    ) {
       return { type: 'text', id: element.id }
     }
   }
-  
+
   // Check icons (in reverse order to match rendering order)
   for (let i = bannerStore.icons.length - 1; i >= 0; i--) {
     const icon = bannerStore.icons[i]
-    
+
+    // Larger touch target for mobile (add 10px padding on all sides)
+    const padding = window.innerWidth <= 1024 ? 10 : 0
+
     // Check if point is within icon bounds
-    if (x >= icon.x && x <= icon.x + icon.size &&
-        y >= icon.y && y <= icon.y + icon.size) {
+    if (
+      x >= icon.x - padding &&
+      x <= icon.x + icon.size + padding &&
+      y >= icon.y - padding &&
+      y <= icon.y + icon.size + padding
+    ) {
       return { type: 'icon', id: icon.id }
     }
   }
-  
+
   // Check images (in reverse order to match rendering order)
   for (let i = bannerStore.images.length - 1; i >= 0; i--) {
     const image = bannerStore.images[i]
-    
+
+    // Larger touch target for mobile (add 10px padding on all sides)
+    const padding = window.innerWidth <= 1024 ? 10 : 0
+
     // Check if point is within image bounds
-    if (x >= image.x && x <= image.x + image.width &&
-        y >= image.y && y <= image.y + image.height) {
+    if (
+      x >= image.x - padding &&
+      x <= image.x + image.width + padding &&
+      y >= image.y - padding &&
+      y <= image.y + image.height + padding
+    ) {
       return { type: 'image', id: image.id }
     }
   }
-  
+
   return null
 }
 
-function handleMouseDown(event: MouseEvent) {
+function handlePointerDown(event: MouseEvent | TouchEvent) {
+  // Prevent default to avoid scrolling on touch devices
+  event.preventDefault()
+
   const coords = getCanvasCoordinates(event)
   const element = findElementAtPosition(coords.x, coords.y)
-  
+
   if (element) {
     isDragging.value = true
     dragTarget.value = element
-    
+
     // Calculate offset from element origin and store start position
     if (element.type === 'text') {
-      const textElement = bannerStore.textElements.find(t => t.id === element.id)
+      const textElement = bannerStore.textElements.find((t) => t.id === element.id)
       if (textElement) {
         dragOffset.value = {
           x: coords.x - textElement.x,
-          y: coords.y - textElement.y
+          y: coords.y - textElement.y,
         }
         dragStartPosition.value = { x: textElement.x, y: textElement.y }
       }
     } else if (element.type === 'icon') {
-      const icon = bannerStore.icons.find(i => i.id === element.id)
+      const icon = bannerStore.icons.find((i) => i.id === element.id)
       if (icon) {
         dragOffset.value = {
           x: coords.x - icon.x,
-          y: coords.y - icon.y
+          y: coords.y - icon.y,
         }
         dragStartPosition.value = { x: icon.x, y: icon.y }
       }
     } else if (element.type === 'image') {
-      const image = bannerStore.images.find(i => i.id === element.id)
+      const image = bannerStore.images.find((i) => i.id === element.id)
       if (image) {
         dragOffset.value = {
           x: coords.x - image.x,
-          y: coords.y - image.y
+          y: coords.y - image.y,
         }
         dragStartPosition.value = { x: image.x, y: image.y }
       }
     }
-    
-    // Change cursor to indicate dragging
-    if (canvasRef.value) {
+
+    // Change cursor to indicate dragging (for mouse devices)
+    if (canvasRef.value && !('touches' in event)) {
       canvasRef.value.style.cursor = 'grabbing'
     }
-    
-    // Prevent default to avoid text selection
-    event.preventDefault()
   }
 }
 
-function handleMouseMove(event: MouseEvent) {
+function handlePointerMove(event: MouseEvent | TouchEvent) {
   if (!isDragging.value || !dragTarget.value) {
-    // Update cursor based on what's under the mouse
-    const coords = getCanvasCoordinates(event)
-    const element = findElementAtPosition(coords.x, coords.y)
-    
-    if (canvasRef.value) {
-      canvasRef.value.style.cursor = element ? 'grab' : 'default'
+    // Update cursor based on what's under the mouse (desktop only)
+    if (!('touches' in event)) {
+      const coords = getCanvasCoordinates(event)
+      const element = findElementAtPosition(coords.x, coords.y)
+
+      if (canvasRef.value) {
+        canvasRef.value.style.cursor = element ? 'grab' : 'default'
+      }
     }
     return
   }
-  
+
+  // Prevent default to avoid scrolling on touch devices
+  event.preventDefault()
+
   const coords = getCanvasCoordinates(event)
   const newX = coords.x - dragOffset.value.x
   const newY = coords.y - dragOffset.value.y
-  
+
   // Update element position
   if (dragTarget.value.type === 'text') {
     bannerStore.updateTextElement(dragTarget.value.id, {
       x: Math.max(0, Math.min(newX, bannerStore.currentSize.width - 50)),
-      y: Math.max(0, Math.min(newY, bannerStore.currentSize.height - 50))
+      y: Math.max(0, Math.min(newY, bannerStore.currentSize.height - 50)),
     })
   } else if (dragTarget.value.type === 'icon') {
-    const icon = bannerStore.icons.find(i => i.id === dragTarget.value!.id)
+    const icon = bannerStore.icons.find((i) => i.id === dragTarget.value!.id)
     if (icon) {
       bannerStore.updateIcon(dragTarget.value.id, {
         x: Math.max(0, Math.min(newX, bannerStore.currentSize.width - icon.size)),
-        y: Math.max(0, Math.min(newY, bannerStore.currentSize.height - icon.size))
+        y: Math.max(0, Math.min(newY, bannerStore.currentSize.height - icon.size)),
       })
     }
   } else if (dragTarget.value.type === 'image') {
-    const image = bannerStore.images.find(i => i.id === dragTarget.value!.id)
+    const image = bannerStore.images.find((i) => i.id === dragTarget.value!.id)
     if (image) {
       bannerStore.updateImage(dragTarget.value.id, {
         x: Math.max(0, Math.min(newX, bannerStore.currentSize.width - image.width)),
-        y: Math.max(0, Math.min(newY, bannerStore.currentSize.height - image.height))
+        y: Math.max(0, Math.min(newY, bannerStore.currentSize.height - image.height)),
       })
     }
   }
 }
 
-function handleMouseUp() {
+function handlePointerUp(event: MouseEvent | TouchEvent) {
   if (isDragging.value && dragTarget.value) {
     // Create undo command for the move operation
     const target = dragTarget.value
     const startPos = dragStartPosition.value
-    
+
     if (target.type === 'text') {
-      const textElement = bannerStore.textElements.find(t => t.id === target.id)
+      const textElement = bannerStore.textElements.find((t) => t.id === target.id)
       if (textElement && (textElement.x !== startPos.x || textElement.y !== startPos.y)) {
         const command = new UpdateTextCommand(target.id, { x: textElement.x, y: textElement.y })
         // Set the old position for undo
@@ -1039,7 +1231,7 @@ function handleMouseUp() {
         undoRedoStore.executeCommand(command)
       }
     } else if (target.type === 'icon') {
-      const icon = bannerStore.icons.find(i => i.id === target.id)
+      const icon = bannerStore.icons.find((i) => i.id === target.id)
       if (icon && (icon.x !== startPos.x || icon.y !== startPos.y)) {
         const command = new UpdateIconCommand(target.id, { x: icon.x, y: icon.y })
         // Set the old position for undo
@@ -1047,7 +1239,7 @@ function handleMouseUp() {
         undoRedoStore.executeCommand(command)
       }
     } else if (target.type === 'image') {
-      const image = bannerStore.images.find(i => i.id === target.id)
+      const image = bannerStore.images.find((i) => i.id === target.id)
       if (image && (image.x !== startPos.x || image.y !== startPos.y)) {
         const command = new UpdateImageCommand(target.id, { x: image.x, y: image.y })
         // Set the old position for undo
@@ -1055,72 +1247,106 @@ function handleMouseUp() {
         undoRedoStore.executeCommand(command)
       }
     }
-    
+
     isDragging.value = false
     dragTarget.value = null
     dragOffset.value = { x: 0, y: 0 }
     dragStartPosition.value = { x: 0, y: 0 }
-    
-    // Reset cursor
-    if (canvasRef.value) {
+
+    // Reset cursor (for mouse devices)
+    if (canvasRef.value && !('touches' in event)) {
       canvasRef.value.style.cursor = 'default'
     }
   }
 }
 
+// Legacy mouse handlers for backward compatibility
+function handleMouseDown(event: MouseEvent) {
+  handlePointerDown(event)
+}
+
+function handleMouseMove(event: MouseEvent) {
+  handlePointerMove(event)
+}
+
+function handleMouseUp() {
+  handlePointerUp(new MouseEvent('mouseup'))
+}
+
 // Watch for changes
-watch([
-  () => bannerStore.currentSize,
-  () => bannerStore.currentBackground,
-  () => bannerStore.textElements.length,
-  () => bannerStore.images.length,
-  () => bannerStore.icons.length
-], () => {
-  nextTick(() => {
-    drawBanner()
-    updateCanvasSize()
-  })
-})
+watch(
+  [
+    () => bannerStore.currentSize,
+    () => bannerStore.currentBackground,
+    () => bannerStore.textElements.length,
+    () => bannerStore.images.length,
+    () => bannerStore.icons.length,
+  ],
+  () => {
+    nextTick(() => {
+      drawBanner()
+      updateCanvasSize()
+    })
+  },
+)
 
 // Watch for deep changes in elements (less frequently)
-watch(() => bannerStore.textElements, () => {
-  nextTick(() => {
-    drawBanner()
-  })
-}, { deep: true })
+watch(
+  () => bannerStore.textElements,
+  () => {
+    nextTick(() => {
+      drawBanner()
+    })
+  },
+  { deep: true },
+)
 
-watch(() => bannerStore.images, () => {
-  nextTick(() => {
-    drawBanner()
-  })
-}, { deep: true })
+watch(
+  () => bannerStore.images,
+  () => {
+    nextTick(() => {
+      drawBanner()
+    })
+  },
+  { deep: true },
+)
 
-watch(() => bannerStore.icons, () => {
-  nextTick(() => {
-    drawBanner()
-  })
-}, { deep: true })
+watch(
+  () => bannerStore.icons,
+  () => {
+    nextTick(() => {
+      drawBanner()
+    })
+  },
+  { deep: true },
+)
 
 onMounted(() => {
   if (canvasRef.value) {
     bannerStore.setCanvasRef(canvasRef.value)
-    
-    // Add mouse event listeners for drag and drop
+
+    // Add mouse event listeners for desktop
     canvasRef.value.addEventListener('mousedown', handleMouseDown)
     canvasRef.value.addEventListener('mousemove', handleMouseMove)
     canvasRef.value.addEventListener('mouseup', handleMouseUp)
     canvasRef.value.addEventListener('mouseleave', handleMouseUp) // Stop dragging when mouse leaves canvas
+
+    // Add touch event listeners for mobile
+    canvasRef.value.addEventListener('touchstart', handlePointerDown, { passive: false })
+    canvasRef.value.addEventListener('touchmove', handlePointerMove, { passive: false })
+    canvasRef.value.addEventListener('touchend', handlePointerUp, { passive: false })
+    canvasRef.value.addEventListener('touchcancel', handlePointerUp, { passive: false })
   }
-  
+
   // Initial setup
   nextTick(() => {
     drawBanner()
     updateCanvasSize()
   })
-  
+
   // Handle window resize
   window.addEventListener('resize', updateCanvasSize)
-  
+
   // Cleanup
   return () => {
     window.removeEventListener('resize', updateCanvasSize)
@@ -1129,27 +1355,49 @@ onMounted(() => {
       canvasRef.value.removeEventListener('mousemove', handleMouseMove)
       canvasRef.value.removeEventListener('mouseup', handleMouseUp)
       canvasRef.value.removeEventListener('mouseleave', handleMouseUp)
+
+      canvasRef.value.removeEventListener('touchstart', handlePointerDown)
+      canvasRef.value.removeEventListener('touchmove', handlePointerMove)
+      canvasRef.value.removeEventListener('touchend', handlePointerUp)
+      canvasRef.value.removeEventListener('touchcancel', handlePointerUp)
     }
   }
 })
 </script>
 
 <template>
-    <div 
-    ref="containerRef" 
-    class="w-full h-full flex items-center justify-center p-6 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl"
+  <div
+    ref="containerRef"
+    class="w-full h-full flex items-center justify-center p-3 sm:p-6 bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-xl lg:rounded-2xl"
   >
     <div class="relative">
       <canvas
         ref="canvasRef"
         :class="[
-          'shadow-strong rounded-2xl border border-neutral-200 bg-white transition-all duration-200',
-          isDragging ? 'cursor-grabbing' : 'cursor-default'
+          'shadow-strong rounded-xl lg:rounded-2xl border border-neutral-200 bg-white transition-all duration-200',
+          isDragging ? 'cursor-grabbing' : 'cursor-default',
+          'touch-none', // Prevent default touch behaviors on the canvas
         ]"
-        style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; user-select: none;"
+        style="
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+          user-select: none;
+        "
       />
-      
 
+      <!-- Mobile hint overlay for first-time users -->
+      <div
+        v-if="
+          bannerStore.textElements.length === 0 &&
+          bannerStore.icons.length === 0 &&
+          bannerStore.images.length === 0
+        "
+        class="absolute inset-0 flex items-center justify-center pointer-events-none lg:hidden"
+      >
+        <div class="bg-black/70 text-white px-4 py-2 rounded-lg text-sm font-medium">
+          Tap elements to move them around
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -1158,4 +1406,38 @@ onMounted(() => {
 canvas {
   display: block;
 }
-</style> 
+
+/* Improve touch interactions on mobile */
+@media (max-width: 1024px) {
+  canvas {
+    /* Prevent zoom on double tap */
+    touch-action: none;
+    /* Improve tap response */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Make the canvas container more touch-friendly */
+  .relative {
+    /* Add some extra touch area around the canvas */
+    padding: 4px;
+    margin: -4px;
+  }
+}
+
+/* Very small screens - reduce padding further */
+@media (max-width: 640px) {
+  canvas {
+    /* Slightly reduce border radius for very small screens */
+    border-radius: 0.75rem; /* 12px */
+  }
+}
+
+/* Disable text selection on the entire canvas area */
+.touch-none {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+</style>
