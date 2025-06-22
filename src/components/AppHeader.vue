@@ -54,7 +54,7 @@ onUnmounted(() => {
   >
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16">
-        <RouterLink to="/" class="flex items-center space-x-3 group">
+        <RouterLink to="/generator" class="flex items-center space-x-3 group">
           <div
             class="w-10 h-10 rounded-xl flex items-center justify-center shadow-medium group-hover:shadow-strong transition-all duration-300 group-hover:scale-110 bg-white border border-primary-200"
           >

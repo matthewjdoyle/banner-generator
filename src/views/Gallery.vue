@@ -17,7 +17,7 @@ function useTemplate(template: BannerTemplate) {
   bannerStore.loadTemplate(template)
 
   // Navigate to the banner generator
-  router.push('/')
+  router.push('/generator')
 }
 
 // Get preview image URL for template
